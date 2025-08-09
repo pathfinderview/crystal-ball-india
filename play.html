@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crystal Ball — Play</title>
+<meta name="description" content="Make a single wealth call from a real headline. Track compounding across 25–30 rounds.">
+<style>
+  :root{
+    --paper:#f6de9b; --paper-2:#fff4c8; --ink:#1c1b19; --muted:#6d5f4a; --line:#d9c18d;
+    --up:#116f3d; --down:#b02022; --card:#fff7df; --shadow:0 14px 32px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;color:var(--ink);
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    background:
+      radial-gradient(1200px 900px at 10% -20%, var(--paper-2), var(--paper) 60%, #f2d78f 100%),
+      linear-gradient(180deg,#fff3cc,#f2d78f 80%);
+  }
+  a{color:#0b5cad;text-decoration:none}
+  header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,0));border-bottom:1px dashed var(--line);backdrop-filter:blur(6px)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .title{margin:0;font-size:18px}
+  .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;padding:18px 0}
+  @media (max-width:980px){.layout{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fff8e6,#fff3d6);box-shadow:var(--shadow)}
+  .in{padding:16px}
+  .headline{font-size:24px;line-height:1.25;margin:0 0 8px 0;font-weight:800}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+  .pill{display:inline-flex;gap:8px;align-items:center;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:#f3d68d;font-size:12px;font-weight:800;color:#7a5a12}
+  .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .btn{appearance:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:12px 16px;font-weight:900;background:#fff4c1}
+  .btn.up{background:linear-gradient(180deg,#e7f8ec,#d3f2de);border-color:#c3e6cf}
+  .btn.down{background:linear-gradient(180deg,#fee9ea,#ffdcdc);border-color:#f3c4c3}
+  .btn.skip{background:linear-gradient(180deg,#fff4d0,#ffeaa4)}
+  .reveal{display:none;margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:14px;background:linear-gradient(180deg,#fff9e9,#fff4d9)}
+  .reveal.show{display:block}
+  .mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .pnl{font-weight:900}
+  .pos{color:var(--up)} .neg{color:var(--down)}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:520px){.grid-2{grid-template-columns:1fr}}
+  .kpi{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff7df}
+  footer{padding:18px 0;color:var(--muted);font-size:12px;border-top:1px dashed var(--line);text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <h1 class="title">Crystal Ball — Play</h1>
+    <a href="index.html">← Back</a>
+  </div>
+</header>
+
+<main class="wrap layout">
+  <!-- Game -->
+  <div class="card">
+    <div class="in">
+      <div class="mono" style="display:flex;justify-content:space-between;gap:12px;margin-bottom:8px">
+        <div>Round <span id="i">0</span>/<span id="n">0</span></div>
+        <div>Bank: <span id="bank">₹0</span></div>
+      </div>
+      <h2 id="h" class="headline">Press “Start” to begin.</h2>
+      <div class="meta">
+        <span id="c" class="pill" style="display:none"></span>
+        <span id="s" style="display:none">Source: <span id="src"></span></span>
+        <span id="d" style="display:none">• <span id="date"></span></span>
+      </div>
+
+      <div class="buttons">
+        <button class="btn up" id="up">▲ UP</button>
+        <button class="btn down" id="down">▼ DOWN</button>
+        <button class="btn skip" id="skip">Skip</button>
+        <button class="btn" id="start">Start</button>
+        <button class="btn" id="next">Next</button>
+      </div>
+      <p class="meta" style="margin-top:8px">We settle against NIFTY 50 close vs prior close for that date. Fixed bank: ₹10,00,000. No leverage.</p>
+
+      <div class="reveal" id="rv">
+        <div id="rvtxt"></div>
+        <div class="grid-2" style="margin-top:8px">
+          <div class="kpi">
+            <div class="meta">Round return</div>
+            <div class="mono" id="rr">—</div>
+          </div>
+          <div class="kpi">
+            <div class="meta">New balance</div>
+            <div class="mono" id="nb">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scoreboard -->
+  <div class="card">
+    <div class="in">
+      <div class="grid-2">
+        <div class="kpi">
+          <div class="meta">Starting bank</div>
+          <div class="mono" id="sb">₹0</div>
+        </div>
+        <div class="kpi">
+          <div class="meta">Current bank</div>
+          <div class="mono" id="cb">₹0</div>
+        </div>
+        <div class="kpi">
+          <div class="meta">Cumulative P&amp;L</div>
+          <div class="mono" id="pnl">₹0</div>
+        </div>
+        <div class="kpi">
+          <div class="meta">Avg daily return</div>
+          <div class="mono" id="avg">0.00%</div>
+        </div>
+        <div class="kpi">
+          <div class="meta">Guesses</div>
+          <div class="mono" id="g">0</div>
+        </div>
+        <div class="kpi">
+          <div class="meta">Skips</div>
+          <div class="mono" id="sk">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Educational prototype. Headlines shown as‑is; outcomes tied to each date’s close. For a production build, we’ll wire an automated India news feed + NSE closes.</p>
+  </div>
+</footer>
+
+<script>
+/* Utilities */
+function INR(n){try{return n.toLocaleString('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});}catch(e){return '₹'+Math.round(n).toLocaleString('en-IN');}}
+function pct(x){return (x).toFixed(2)+'%';}
+function mean(a){return a.length ? a.reduce((m,x)=>m+x,0)/a.length : 0;}
+
+/* Demo pack (25 headlines). For production we’ll fetch same‑day headlines & actual closes. */
+const ROUNDS = [
+  {date:"2024-06-07", src:"Reuters", cat:"RBI / MPC", text:"RBI holds rates; flags inflation risks", pct:+2.05},
+  {date:"2024-02-01", src:"Reuters", cat:"Budget", text:"Govt trims fiscal deficit; capex focus", pct:-0.13},
+  {date:"2025-05-27", src:"Reuters", cat:"Monsoon", text:"India retains forecast of above‑average monsoon rains", pct:-0.70},
+  {date:"2025-06-30", src:"Reuters", cat:"Monsoon", text:"Above‑average July rains expected after wetter June", pct:-0.47},
+  {date:"2024-04-05", src:"Reuters", cat:"RBI / MPC", text:"Central bank holds repo rate; inflation commentary steady", pct:-0.01},
+  {date:"2025-04-15", src:"Reuters", cat:"Macro / CPI", text:"Retail inflation cools; policy watchers parse details", pct:+2.19},
+  {date:"2023-12-12", src:"Press",   cat:"GDP", text:"Growth outlook reiterated; manufacturing mixed", pct:+0.40},
+  {date:"2023-08-10", src:"Press",   cat:"IIP", text:"Industrial output prints near expectations", pct:-0.25},
+  {date:"2023-07-14", src:"Press",   cat:"Oil", text:"Crude volatility dominates morning chatter", pct:+0.55},
+  {date:"2023-11-01", src:"Press",   cat:"Fed", text:"US Fed holds; global cues remain in focus", pct:+0.28},
+  {date:"2024-01-10", src:"Press",   cat:"Rupee", text:"INR steady in early trade; flows mixed", pct:-0.12},
+  {date:"2024-03-01", src:"Press",   cat:"Earnings", text:"Large‑cap banks kick off results season", pct:+0.72},
+  {date:"2024-05-06", src:"Press",   cat:"Geopolitics", text:"Shipping route risks rise on fresh headlines", pct:-0.31},
+  {date:"2024-09-01", src:"Press",   cat:"Autos", text:"Monthly auto sales releases today", pct:+0.47},
+  {date:"2025-01-22", src:"Press",   cat:"Metals", text:"China policy whispers move metals", pct:-0.22},
+  {date:"2025-02-14", src:"Press",   cat:"Telecom", text:"Spectrum policy briefing expected", pct:+0.33},
+  {date:"2025-03-05", src:"Press",   cat:"Infra", text:"New highway awards announced", pct:+0.18},
+  {date:"2024-08-22", src:"Press",   cat:"US Jobs", text:"Overseas jobs data eyed; yields jittery", pct:-0.41},
+  {date:"2024-10-05", src:"Press",   cat:"IPO", text:"Large IPO lists; allocation buzz", pct:+0.66},
+  {date:"2025-04-01", src:"Press",   cat:"Banking", text:"Credit growth steady; deposits trend watched", pct:-0.17},
+  {date:"2023-10-28", src:"Press",   cat:"Consumption", text:"Festive demand mixed across categories", pct:+0.21},
+  {date:"2024-02-20", src:"Press",   cat:"Cement", text:"Regional price checks in focus", pct:-0.19},
+  {date:"2024-06-18", src:"Press",   cat:"Healthcare", text:"Quality inspection note at pharma unit", pct:+0.24},
+  {date:"2025-02-09", src:"Press",   cat:"Energy", text:"Gas price review slated", pct:+0.15},
+  {date:"2025-03-11", src:"Press",   cat:"Defense", text:"Large defense order pipeline indicated", pct:-0.26},
+];
+
+const START = 1000000;
+let i = -1, order = [...ROUNDS], bank = START, guesses=0, skips=0, rets=[];
+
+const eI=document.getElementById('i'), eN=document.getElementById('n'), eH=document.getElementById('h'),
+      eC=document.getElementById('c'), eS=document.getElementById('s'), eSrc=document.getElementById('src'),
+      eDW=document.getElementById('d'), eD=document.getElementById('date'),
+      eUP=document.getElementById('up'), eDN=document.getElementById('down'), eSK=document.getElementById('skip'),
+      eST=document.getElementById('start'), eNX=document.getElementById('next'),
+      eRV=document.getElementById('rv'), eRVT=document.getElementById('rvtxt'),
+      eRR=document.getElementById('rr'), eNB=document.getElementById('nb'),
+      eSB=document.getElementById('sb'), eCB=document.getElementById('cb'), ePNL=document.getElementById('pnl'),
+      eAVG=document.getElementById('avg'), eG=document.getElementById('g'), eSKS=document.getElementById('sk'),
+      eBANK=document.getElementById('bank'), eNALL=document.getElementById('n');
+
+eN.textContent = String(order.length);
+[eSB,eCB,eBANK].forEach(el=>el.textContent=INR(START));
+ePNL.textContent = INR(0);
+
+function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
+function score(){eCB.textContent=INR(bank);eBANK.textContent=INR(bank);ePNL.textContent=INR(bank-START);eG.textContent=String(guesses);eSKS.textContent=String(skips);eAVG.textContent=pct(mean(rets));}
+function enable(b){[eUP,eDN,eSK].forEach(x=>{x.disabled=!b;x.style.opacity=b?1:.6;});}
+
+function start(){
+  shuffle(order); i=-1; bank=START; guesses=0; skips=0; rets=[];
+  eN.textContent=String(order.length); eI.textContent='0';
+  eH.textContent='Ready. Press ▲UP or ▼DOWN when the headline appears.';
+  eC.style.display='none'; eS.style.display='none'; eDW.style.display='none'; eRV.classList.remove('show');
+  score(); enable(true); next();
+}
+function next(){
+  i+=1;
+  if(i>=order.length){ enable(false); eH.textContent='Done! You’ve finished this pack.'; eC.style.display='none'; eS.style.display='none'; eDW.style.display='none'; eRV.classList.remove('show'); return; }
+  const r=order[i]; eI.textContent=String(i+1);
+  eH.textContent=r.text; eC.textContent=r.cat; eSrc.textContent=r.src; eD.textContent=r.date;
+  eC.style.display='inline-flex'; eS.style.display='inline'; eDW.style.display='inline';
+  eRV.classList.remove('show'); enable(true);
+}
+function reveal(r, dir){
+  // r.pct is actual close-to-close % change. Wealth move is ±r.pct based on your call.
+  const m = r.pct, sign = m>0?'+':(m<0?'−':''), abs=Math.abs(m).toFixed(2);
+  const rr = dir===0 ? 0 : dir*m;
+  const pnl = bank*(rr/100);
+  if(dir!==0){ bank=Math.max(0,bank+pnl); guesses+=1; rets.push(rr); } else { skips+=1; }
+  eRVT.innerHTML = `NIFTY closed <strong>${sign}${abs}%</strong> on <span class="mono">${r.date}</span>.`;
+  eRR.textContent = (dir===0)? '0.00%' : ( (rr>=0?'+':'−') + Math.abs(rr).toFixed(2) + '%' );
+  eRR.className = 'mono pnl ' + (rr>=0 ? 'pos':'neg');
+  eNB.textContent = INR(bank);
+  eRV.classList.add('show'); enable(false); score();
+}
+document.getElementById('up').onclick = ()=>reveal(order[i], +1);
+document.getElementById('down').onclick = ()=>reveal(order[i], -1);
+document.getElementById('skip').onclick = ()=>reveal(order[i], 0);
+document.getElementById('start').onclick = start;
+document.getElementById('next').onclick = next;
+window.addEventListener('keydown', (e)=>{const k=e.key.toLowerCase();if(k==='u')reveal(order[i],+1);if(k==='d')reveal(order[i],-1);if(k==='s')reveal(order[i],0);if(k==='n')next();});
+</script>
+</body>
+</html>
