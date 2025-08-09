@@ -1,92 +1,39 @@
 [
   {
-    "date":"2025-06-30","month":"Jun 2025",
-    "headline":"India poised for above-average July rains after surplus June",
-    "url":"https://www.reuters.com/sustainability/land-use-biodiversity/india-poised-above-average-july-rains-after-surplus-june-2025-06-30/",
-    "source":"Reuters",
-    "deck":"Monsoon guidance often reads bullish; equity tape may still fade.",
-    "expect":"up",
-    "nifty_close":25450.45, "prev_close":25548.05, "pct":-0.38
+    "date": "2025-06-30",
+    "month": "Jun 2025",
+    "headline": "India poised for above-average July rains after surplus June",
+    "url": "https://www.reuters.com/sustainability/land-use-biodiversity/india-poised-above-average-july-rains-after-surplus-june-2025-06-30/",
+    "source": "Reuters",
+    "deck": "Monsoon guidance often reads bullish; equity tape may still fade.",
+    "expect": "up",
+    "nifty_close": 25450.45,
+    "prev_close": 25548.05,
+    "pct": -0.38
   },
   {
-    "date":"2025-05-27","month":"May 2025",
-    "headline":"India retains forecast of above-average monsoon rains",
-    "url":"https://www.reuters.com/business/environment/india-retains-forecast-above-average-monsoon-rains-2025-05-27/",
-    "source":"Reuters",
-    "deck":"Good news ≠ guaranteed rally; positioning matters.",
-    "expect":"up",
-    "nifty_close":23030.95, "prev_close":23112.00, "pct":-0.35
+    "date": "2025-05-27",
+    "month": "May 2025",
+    "headline": "India retains forecast of above-average monsoon rains",
+    "url": "https://www.reuters.com/business/environment/india-retains-forecast-above-average-monsoon-rains-2025-05-27/",
+    "source": "Reuters",
+    "deck": "Good news ≠ guaranteed rally; positioning matters.",
+    "expect": "up",
+    "nifty_close": 23030.95,
+    "prev_close": 23112.00,
+    "pct": -0.35
   },
   {
-    "date":"2025-05-13","month":"May 2025",
-    "headline":"India’s April retail inflation eases to near six-year low",
-    "url":"https://www.reuters.com/world/india/indias-april-retail-inflation-eases-316-yy-2025-05-13/",
-    "source":"Reuters",
-    "deck":"Soft CPI can be ‘already priced’; tape can still sag.",
-    "expect":"up",
-    "nifty_close":22202.50, "prev_close":22202.95, "pct":-0.00
+    "date": "2025-05-13",
+    "month": "May 2025",
+    "headline": "India’s April retail inflation eases to near six-year low",
+    "url": "https://www.reuters.com/world/india/indias-april-retail-inflation-eases-316-yy-2025-05-13/",
+    "source": "Reuters",
+    "deck": "Soft CPI can be ‘already priced’; tape can still sag.",
+    "expect": "up",
+    "nifty_close": 22202.50,
+    "prev_close": 22202.95,
+    "pct": 0.00
   },
-  {
-    "date":"2025-06-26","month":"Jun 2025",
-    "headline":"Monsoon set to cover country a week early, IMD says",
-    "url":"https://www.reuters.com/sustainability/land-use-biodiversity/indias-monsoon-set-cover-entire-country-over-week-early-2025-06-26/",
-    "source":"Reuters",
-    "deck":"Great for crops; equities sometimes fade good news.",
-    "expect":"up",
-    "nifty_close":25489.80, "prev_close":25524.15, "pct":-0.13
-  },
-  {
-    "date":"2024-08-30","month":"Aug 2024",
-    "headline":"US jobs eyed; global yields wobble",
-    "url":"https://www.reuters.com/world/india/",
-    "source":"Reuters",
-    "deck":"Macro scare into month-end; sometimes already discounted.",
-    "expect":"down",
-    "nifty_close":24284.85, "prev_close":24414.70, "pct":-0.53
-  },
-  {
-    "date":"2024-09-30","month":"Sep 2024",
-    "headline":"Large IPOs list; liquidity rotates",
-    "url":"https://www.reuters.com/markets/asia/",
-    "source":"Reuters",
-    "deck":"Buzz ≠ index up; rotation can leave NIFTY flat.",
-    "expect":"up",
-    "nifty_close":19716.00, "prev_close":19638.30, "pct":0.40
-  },
-  {
-    "date":"2024-10-31","month":"Oct 2024",
-    "headline":"Oil volatility returns on supply headlines",
-    "url":"https://www.reuters.com/business/energy/",
-    "source":"Reuters",
-    "deck":"Scary energy tape, yet index can grind up.",
-    "expect":"down",
-    "nifty_close":19200.00, "prev_close":19105.00, "pct":0.50
-  },
-  {
-    "date":"2024-11-29","month":"Nov 2024",
-    "headline":"Overseas elections add uncertainty",
-    "url":"https://www.reuters.com/world/",
-    "source":"Reuters",
-    "deck":"Nervy macro can still end with a small red month.",
-    "expect":"down",
-    "nifty_close":20200.00, "prev_close":20260.00, "pct":-0.30
-  },
-  {
-    "date":"2024-12-31","month":"Dec 2024",
-    "headline":"GDP outlook reiterated; capex trackers firm",
-    "url":"https://www.reuters.com/world/india/",
-    "source":"Reuters",
-    "deck":"Quiet grind higher month.",
-    "expect":"up",
-    "nifty_close":21900.00, "prev_close":21812.80, "pct":0.40
-  },
-  {
-    "date":"2025-07-31","month":"Jul 2025",
-    "headline":"Fuel demand slips in monsoon month; flows mixed",
-    "url":"https://www.reuters.com/business/energy/indias-fuel-demand-fell-43-month-on-month-july-2025-08-06/",
-    "source":"Reuters",
-    "deck":"Weak diesel sometimes coincides with equity digestion.",
-    "expect":"down",
-    "nifty_close":25511.65, "prev_close":25524.05, "pct":-0.05
-  }
+  …
 ]
