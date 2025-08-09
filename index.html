@@ -1,107 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crystal Ball — India</title>
-<meta name="description" content="Read a real headline. Make one clean wealth decision. Track how compounding responds.">
+<meta name="description" content="Read a monthly headline. Make one clean wealth decision. See how compounding responds.">
 <meta name="theme-color" content="#0b1b2b">
-<meta property="og:title" content="Crystal Ball — India">
-<meta property="og:description" content="Make one clean wealth decision from a monthly headline. See compounding at work.">
 <style>
   :root{
-    --ink:#0b1b2b;        /* deep navy = trust */
-    --ink-2:#132a40;
-    --paper:#f7f6f3;      /* warm ivory */
-    --line:#d9d7d2;
-    --muted:#6a7380;
-    --accent:#1f7a5e;     /* calm green */
-    --accent-2:#276fca;   /* blue cta */
-    --card:#ffffff;
-    --shadow:0 14px 34px rgba(9,18,28,0.12);
+    --ink:#0b1b2b; --ink-2:#132a40; --paper:#f7f6f3; --line:#d9d7d2; --muted:#6a7380;
+    --accent:#276fca; --accent-2:#1f7a5e; --card:#ffffff; --shadow:0 14px 34px rgba(9,18,28,0.12);
   }
-  *{box-sizing:border-box}
-  html,body{height:100%}
+  *{box-sizing:border-box} html,body{height:100%}
   body{
-    margin:0;color:var(--ink);
-    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-    background:
-      radial-gradient(1200px 900px at 10% -20%, #fbfaf7, var(--paper) 60%, #f0efe9 100%),
-      linear-gradient(180deg,#fbfbfb,#f0efe9 80%);
+    margin:0;color:var(--ink);font-family:ui-serif,Georgia,"Times New Roman",Times,serif;
+    background:radial-gradient(1200px 900px at 10% -20%,#fbfaf7,var(--paper) 60%,#f0efe9 100%),linear-gradient(180deg,#fbfbfb,#f0efe9 80%);
   }
-  a{color:var(--accent-2);text-decoration:none}
-  a:hover{text-decoration:underline}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
   .wrap{max-width:1160px;margin:0 auto;padding:0 18px}
-  /* header */
-  header{
-    position:sticky;top:0;z-index:40;
-    background:linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,0));
-    border-bottom:1px solid var(--line);
-    backdrop-filter: saturate(140%) blur(8px);
-  }
+  header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,0));border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(8px)}
   .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
   .brand{display:flex;align-items:center;gap:12px}
   .logo{width:36px;height:36px}
   .title{margin:0;font-size:18px;letter-spacing:.2px;color:var(--ink-2)}
-  .cta{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:11px 16px;border-radius:12px;border:1px solid var(--line);
-    background:linear-gradient(180deg,#f3f7ff,#e8f0ff);
-    color:#0b1b2b;font-weight:900;letter-spacing:.3px;
-    box-shadow:0 10px 24px rgba(16,26,36,.08);
-  }
-  /* hero */
-  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;padding:32px 0}
-  @media (max-width:980px){.hero{grid-template-columns:1fr}}
-  .hero h1{font-size:44px;line-height:1.12;margin:0 0 10px 0;letter-spacing:.1px}
-  .hero p{margin:0;color:var(--muted)}
-  .actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
-  .btn{appearance:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:12px 18px;
-       font-weight:900;letter-spacing:.3px;background:#f6f9ff;box-shadow:0 6px 16px rgba(16,26,36,.06)}
+  .cta{display:inline-flex;gap:10px;align-items:center;padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#f3f7ff,#e8f0ff);font-weight:900;letter-spacing:.3px;color:var(--ink);box-shadow:0 10px 24px rgba(16,26,36,.08)}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding:32px 0} @media(max-width:980px){.hero{grid-template-columns:1fr}}
+  .hero h1{font-size:44px;line-height:1.12;margin:0 0 10px 0}
+  .hero p{margin:0;color:var(--muted)} .actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+  .btn{appearance:none;border:1px solid var(--line);border-radius:12px;padding:12px 18px;font-weight:900;letter-spacing:.3px;background:#f6f9ff;box-shadow:0 6px 16px rgba(16,26,36,.06)}
   .btn.primary{background:linear-gradient(180deg,#e6f4ee,#d8efe6);border-color:#cde6db}
-  .btn.secondary{background:linear-gradient(180deg,#f3f7ff,#e8f0ff)}
-  /* card */
   .card{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow)}
   .in{padding:18px}
-  /* article window */
-  .article{
-    border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;
-  }
-  .masthead{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fafafa,#f4f6f8);
-  }
-  .papername{font-weight:900;letter-spacing:.5px}
-  .dateline{font-size:12px;color:var(--muted)}
-  .headline{font-size:26px;line-height:1.22;margin:14px;font-weight:800}
+
+  /* Article window */
+  .article{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+  .mast{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fafafa,#f4f6f8)}
+  .paper{font-weight:900;letter-spacing:.5px}
+  .date{font-size:12px;color:var(--muted)}
+  .h{font-size:26px;line-height:1.22;margin:14px;font-weight:800}
   .deck{margin:0 14px 14px;color:#4a5563}
   .by{margin:0 14px 14px;color:#6b7280;font-size:12px}
-  /* sections */
+
   section{padding:28px 0;border-top:1px solid var(--line)}
   h2{margin:0 0 8px 0;font-size:22px}
-  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-  @media (max-width:980px){.grid-3{grid-template-columns:1fr}}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px} @media(max-width:980px){.grid-3{grid-template-columns:1fr}}
   .k{padding:16px;border:1px solid var(--line);border-radius:12px;background:#fff}
   .k .big{font-size:18px;font-weight:900}
   footer{padding:22px 0;color:#6a7380;font-size:12px;border-top:1px solid var(--line);text-align:center}
-  /* subtle tag */
-  .tag{display:inline-flex;gap:8px;align-items:center;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:#f4f7fa;font-size:12px;font-weight:800;color:#445}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
     <div class="brand">
-      <!-- inline logo -->
+      <!-- inline logo (trusty, simple) -->
       <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
-        <defs>
-          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#276fca"/><stop offset="1" stop-color="#1f7a5e"/>
-          </linearGradient>
-        </defs>
-        <rect rx="12" ry="12" x="2" y="2" width="60" height="60" fill="url(#g)"></rect>
-        <circle cx="32" cy="26" r="12" fill="#ffffff" opacity=".95"></circle>
-        <path d="M16 44c4-6 12-10 16-10s12 4 16 10" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#276fca"/><stop offset="1" stop-color="#1f7a5e"/></linearGradient></defs>
+        <rect rx="12" ry="12" x="2" y="2" width="60" height="60" fill="url(#g)"/><circle cx="32" cy="26" r="12" fill="#fff" opacity=".95"/>
+        <path d="M16 44c4-6 12-10 16-10s12 4 16 10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
       </svg>
       <h1 class="title">Crystal Ball — India</h1>
     </div>
@@ -113,55 +68,33 @@
   <div class="hero">
     <div>
       <h1>One clean wealth decision from a monthly headline.</h1>
-      <p>Read a real headline the way you actually see it. Make a single call for that month: will your capital grow or shrink by month‑end close? We show how compounding responds across the year.</p>
+      <p>Read the news as you actually see it. Make a single call for that month: will your capital grow or shrink by month‑end close? We show how compounding responds across the year.</p>
       <div class="actions">
         <a class="btn primary" href="play.html">Play now</a>
-        <a class="btn secondary" href="#how">How it works</a>
+        <a class="btn" href="#how">How it works</a>
       </div>
       <p style="margin-top:10px;color:var(--muted)">No ads. No fees. Transparent math. Educational only.</p>
     </div>
-    <div class="card">
-      <div class="in">
-        <div class="article" aria-label="Article window">
-          <div class="masthead">
-            <div class="papername">Daily Ledger</div>
-            <div class="dateline">Mumbai • 9:15 IST</div>
-          </div>
-          <h3 class="headline">RBI holds rates; policy stance unchanged as inflation risks watched</h3>
-          <p class="deck">Markets look for signals on liquidity and growth. Analysts expect calm, but surprises happen.</p>
-          <p class="by">Source example: Reuters / Official releases (production build uses real links)</p>
-        </div>
-        <p style="margin:10px 2px 0;color:var(--muted);font-size:12px">The game presents a monthly headline and settles on the NIFTY 50 month‑end close vs prior month‑end close.</p>
+    <div class="card"><div class="in">
+      <div class="article" aria-label="Article window">
+        <div class="mast"><div class="paper">Daily Ledger</div><div class="date">Mumbai • 9:15 IST</div></div>
+        <h3 class="h">RBI holds rates; stance unchanged as inflation risks watched</h3>
+        <p class="deck">Markets look for signals on liquidity and growth. Analysts expect calm, but surprises happen.</p>
+        <p class="by">Examples pull from Reuters / official releases (production build uses real links).</p>
       </div>
-    </div>
+    </div></div>
   </div>
 
   <section id="how">
     <h2>How it works</h2>
     <div class="grid-3">
-      <div class="k">
-        <div class="big">1) See the month’s headline</div>
-        <p class="muted">Unmasked, as published. Timed and sourced (Reuters / official). </p>
-        <span class="tag">Monthly cadence</span>
-      </div>
-      <div class="k">
-        <div class="big">2) Make one decision</div>
-        <p class="muted">Pick <strong>UP</strong> or <strong>DOWN</strong>. We mix in “gotcha” months—where the obvious read would’ve misled.</p>
-        <span class="tag">Right/Wrong tracked</span>
-      </div>
-      <div class="k">
-        <div class="big">3) Learn via compounding</div>
-        <p class="muted">We update your bank and show monthly return and annualized return (CAGR) as you progress.</p>
-        <span class="tag">Transparent returns</span>
-      </div>
+      <div class="k"><div class="big">1) See the month’s headline</div><p class="muted">Unmasked, as published (Reuters/official), with timestamp & link.</p></div>
+      <div class="k"><div class="big">2) Make one decision</div><p class="muted">Pick <strong>UP</strong> or <strong>DOWN</strong>. We mix in “gotcha” months—where the obvious read misleads.</p></div>
+      <div class="k"><div class="big">3) Learn via compounding</div><p class="muted">We track Right/Wrong, monthly return, and annualised return (CAGR) as you progress.</p></div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p>&copy; 2025 • Crystal Ball — India • Educational prototype</p>
-  </div>
-</footer>
+<footer><div class="wrap"><p>&copy; 2025 • Crystal Ball — India • Educational prototype</p></div></footer>
 </body>
 </html>
