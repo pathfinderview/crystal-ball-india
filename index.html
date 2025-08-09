@@ -4,96 +4,95 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crystal Ball — India (Yes/No)</title>
-<meta name="description" content="A tiny game: see a real Indian headline, guess if NIFTY 50 closed up or down that day, and see how your bankroll would have changed.">
+<meta name="description" content="See a headline. Call UP or DOWN for NIFTY 50. Learn why stability beats prediction.">
 <style>
   :root{
-    --paper:#fde7a7; /* ET-ish yellow */
-    --paper-2:#fff5cc;
-    --ink:#2a251f;
-    --muted:#6b5c4a;
-    --accent:#0f7a48; /* up */
-    --danger:#b42318; /* down */
-    --pill:#f7d58a;
-    --border:#d1b574;
+    --paper:#fde7a7;          /* ET-ish paper */
+    --paper-2:#fff4c8;
+    --ink:#1f1b15;            /* text */
+    --muted:#6a5b46;          /* muted */
+    --line:#d7be8a;           /* border lines */
+    --up:#116f3d;
+    --down:#b02022;
+    --accent:#0b5cad;         /* link */
+    --card:#fff7da;
+    --pill:#f6d991;
+    --shadow: 0 12px 30px rgba(0,0,0,.08);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
     margin:0;
-    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
     color:var(--ink);
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
     background:
-      radial-gradient(1200px 800px at 20% -10%, var(--paper-2), var(--paper) 50%, #f8e2a0 100%),
-      linear-gradient(180deg, #fff5d6 0%, #f7e0a3 100%);
+      radial-gradient(1200px 900px at 10% -20%, var(--paper-2), var(--paper) 60%, #f7e3a8 100%),
+      linear-gradient(180deg,#fff5d8,#f5df9f 80%);
   }
+  a{color:var(--accent)}
   header{
-    padding:22px 18px;
-    border-bottom:1px dashed var(--border);
-    background:linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0));
+    padding:18px 16px;
+    border-bottom:1px dashed var(--line);
+    background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,0));
+    position:sticky; top:0; z-index:10;
   }
-  header .brand{
-    display:flex;align-items:center;gap:10px;
-  }
-  .logo{
-    width:28px;height:28px;border-radius:4px;background:#1a1a1a;color:#fff;
-    display:grid;place-items:center;font-weight:700;letter-spacing:0.5px;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
+  .brand{display:flex;gap:10px;align-items:center}
+  .logo{width:30px;height:30px;border-radius:6px;background:#111;color:#fff;display:grid;place-items:center;
+        font-weight:800;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.3px}
   h1{margin:0;font-size:22px;letter-spacing:.2px}
-  .sub{margin:6px 0 0 0;color:var(--muted);font-size:13px}
-
-  .wrap{max-width:980px;margin:0 auto;padding:16px;display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
-  @media (max-width: 900px){ .wrap{grid-template-columns:1fr} }
-
+  .sub{color:var(--muted);font-size:13px;margin:4px 0 0 0}
+  .wrap{max-width:1080px;margin:0 auto;padding:14px;display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+  @media (max-width: 960px){ .wrap{grid-template-columns:1fr} }
   .card{
-    border:1px solid var(--border);
-    border-radius:12px;
-    background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.25));
-    box-shadow:0 14px 30px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.5);
+    border:1px solid var(--line); border-radius:12px; background:linear-gradient(180deg, #fff8e1, #fff4d1);
+    box-shadow: var(--shadow);
   }
-  .card .in{padding:16px}
-  .headline{
-    font-size:24px;line-height:1.25;margin:0 0 10px 0;font-weight:700;
+  .in{padding:16px}
+  .hero{
+    padding:12px 16px; border-bottom:1px dashed var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px;
   }
-  .meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted);font-size:13px}
-  .chip{background:var(--pill);border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-weight:700;font-size:12px;color:#7a5a12}
-  .src a{color:inherit;text-decoration:underline dotted}
-  .muted{color:var(--muted)}
-  .hero{padding:14px 16px;border-bottom:1px dashed var(--border);display:flex;justify-content:space-between;gap:8px;align-items:center}
-  .progress{font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;}
-
-  .actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .progress{font-variant-numeric: tabular-nums; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-weight:700}
   .btn{
-    appearance:none;border:1px solid var(--border);background:#fff3c4;cursor:pointer;
-    padding:12px 16px;border-radius:12px;font-weight:800;letter-spacing:.3px;font-size:16px;
-    box-shadow:0 6px 16px rgba(0,0,0,.05);transition:transform .02s ease, box-shadow .2s ease, background .2s ease;
+    appearance:none; border:1px solid var(--line); border-radius:12px; cursor:pointer;
+    padding:12px 16px; font-weight:900; letter-spacing:.3px; background:#fff4c1; box-shadow:0 6px 16px rgba(0,0,0,.06);
+    transition:transform .02s ease, box-shadow .2s ease, background .2s ease;
   }
-  .btn:hover{box-shadow:0 8px 20px rgba(0,0,0,.08)}
+  .btn:hover{box-shadow:0 10px 24px rgba(0,0,0,.08)}
   .btn:active{transform:translateY(1px)}
-  .btn.up{background:linear-gradient(180deg, #e7fbec, #d1f6e0);border-color:#bde5c9}
-  .btn.down{background:linear-gradient(180deg, #feecec, #fbdada);border-color:#f5b6b1}
-  .btn.skip{background:linear-gradient(180deg, #fff6e4, #ffefc4);border-color:#efdc9c}
-  .btn.primary{background:linear-gradient(180deg, #fff0b3, #ffe48a);border-color:#e5c46a}
-
-  .reveal{
-    margin-top:14px;padding:14px;border-radius:12px;border:1px solid var(--border);
-    background:linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,.35));
-    display:none;
-  }
+  .btn.up{background:linear-gradient(180deg,#e7f8ec,#d3f2de); border-color:#c3e6cf}
+  .btn.down{background:linear-gradient(180deg,#fee9ea,#ffdcdc); border-color:#f3c4c3}
+  .btn.skip{background:linear-gradient(180deg,#fff4d0,#ffeaa4)}
+  .btn.primary{background:linear-gradient(180deg,#fff2b1,#ffe380)}
+  .headline{font-size:26px; line-height:1.25; margin:0 0 12px 0; font-weight:800}
+  .meta{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:13px}
+  .chip{background:var(--pill); border:1px solid var(--line); color:#7a5a12; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:800}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+  .reveal{display:none; margin-top:12px; border:1px solid var(--line); border-radius:12px; padding:14px;
+          background:linear-gradient(180deg, #fff9e9, #fff4d9)}
   .reveal.show{display:block}
-  .pnl{font-size:18px;font-weight:800}
-  .pnl.pos{color:var(--accent)}
-  .pnl.neg{color:var(--danger)}
-  .mono{font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;}
-  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media (max-width: 520px){ .kpis{grid-template-columns:1fr} }
-
-  .score .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 16px;border-bottom:1px dashed var(--border)}
-  .score .row:last-child{border-bottom:0}
-  .score .label{font-size:12px;color:var(--muted)}
-  .score .value{font-size:18px;font-weight:800}
-
-  footer{max-width:980px;margin:16px auto;padding:12px 16px;color:var(--muted);font-size:12px;text-align:center}
-  .help{font-size:12px;color:var(--muted);margin-top:8px}
+  .pnl{font-weight:900; font-size:18px}
+  .pos{color:var(--up)} .neg{color:var(--down)}
+  .mono{font-variant-numeric: tabular-nums; font-family: ui-monospace,SFMono-Regular,Menlo,monospace}
+  .help{font-size:12px; color:var(--muted); margin-top:6px}
+  .stack{display:grid; gap:10px}
+  .kpis{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .kpi{border:1px solid var(--line); border-radius:12px; padding:12px; background:var(--card)}
+  .kpi .label{font-size:12px; color:var(--muted)}
+  .kpi .value{font-size:18px; font-weight:900}
+  .kpi .small{font-size:12px; color:var(--muted)}
+  .divider{border-top:1px dashed var(--line); margin:10px 0}
+  .sticky{position:sticky; top:78px}
+  footer{max-width:1080px; margin:20px auto; padding:12px 16px; color:var(--muted); font-size:12px; text-align:center}
+  .poster-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  @media (max-width:720px){ .poster-grid{grid-template-columns:1fr} }
+  .poster{
+    border:1px solid var(--line); border-radius:12px; padding:14px; background:#fff8e7; font-weight:800; line-height:1.25;
+    box-shadow:0 8px 18px rgba(0,0,0,.05);
+  }
+  .final{display:none}
+  .final.show{display:block}
+  .pillstat{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#fff3c6; font-weight:800; font-size:12px}
+  .tiny{font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -102,12 +101,13 @@
       <div class="logo">IN</div>
       <div>
         <h1>Crystal Ball — India (Yes/No)</h1>
-        <p class="sub">See a real headline. Guess if <strong>NIFTY 50</strong> closed <strong>UP</strong> or <strong>DOWN</strong> that day. Track your cumulative P&amp;L.</p>
+        <p class="sub">A quick, fair game: see a headline, call <strong>UP</strong> or <strong>DOWN</strong> for NIFTY 50. Learn why <strong>stability</strong> beats prediction.</p>
       </div>
     </div>
   </header>
 
   <div class="wrap">
+    <!-- Left: Game -->
     <div class="card">
       <div class="hero">
         <div class="progress mono"><span id="roundIdx">0</span>/<span id="roundTotal">0</span></div>
@@ -117,162 +117,214 @@
         </div>
       </div>
       <div class="in">
-        <h2 id="headline" class="headline">Press “Start / Reset” to get your first headline.</h2>
-        <div class="meta">
-          <span id="chipCat" class="chip" style="display:none;">Category</span>
-          <span class="src" id="srcWrap" style="display:none;">Source: <a id="srcLink" href="#" target="_blank" rel="noopener">—</a></span>
-          <span class="muted" id="dateWrap" style="display:none;">• <span id="dateTxt"></span></span>
-        </div>
+        <div id="stageGame" class="stack">
+          <h2 id="headline" class="headline">Press “Start / Reset” to begin.</h2>
+          <div class="meta">
+            <span id="chipCat" class="chip" style="display:none;"></span>
+            <span id="srcWrap" class="tiny" style="display:none;">Source: <span id="srcTxt"></span></span>
+          </div>
 
-        <div class="actions">
-          <button class="btn up" id="btnUp">▲ UP</button>
-          <button class="btn down" id="btnDown">▼ DOWN</button>
-          <button class="btn skip" id="btnSkip">Skip</button>
-        </div>
-        <div class="help">Rule: close vs prior close. 1× exposure. Skip keeps your balance unchanged.</div>
+          <div class="actions">
+            <button class="btn up" id="btnUp">▲ UP</button>
+            <button class="btn down" id="btnDown">▼ DOWN</button>
+            <button class="btn skip" id="btnSkip">Skip</button>
+          </div>
+          <div class="help">Rule: close vs prior close. 1× exposure. Skip keeps your balance unchanged. (Demo pack uses simulated returns.)</div>
 
-        <div class="reveal" id="revealBox">
-          <div id="revealText"></div>
-          <div class="kpis" style="margin-top:8px">
-            <div>
-              <div class="label">Round Return</div>
-              <div class="value mono" id="roundRet">—</div>
+          <div class="reveal" id="revealBox">
+            <div id="revealText"></div>
+            <div class="kpis">
+              <div class="kpi">
+                <div class="label">Round Return</div>
+                <div class="value mono" id="roundRet">—</div>
+                <div class="small">Your call vs actual</div>
+              </div>
+              <div class="kpi">
+                <div class="label">New Balance</div>
+                <div class="value mono" id="newBal">—</div>
+                <div class="small">Starts at ₹10,00,000</div>
+              </div>
             </div>
-            <div>
-              <div class="label">New Balance</div>
-              <div class="value mono" id="newBal">—</div>
+            <div class="actions">
+              <button class="btn primary" id="btnNext">Next headline →</button>
             </div>
           </div>
+        </div>
+
+        <!-- Finale -->
+        <div id="stageFinal" class="final">
+          <h2 class="headline">Stability Beats Prediction</h2>
+          <div class="kpis" style="margin-bottom:8px">
+            <div class="kpi">
+              <div class="label">Your Final Balance</div>
+              <div class="value mono" id="finalBal">—</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Accuracy</div>
+              <div class="value mono" id="finalAcc">—</div>
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="label">Always-Long on your same 30 rounds</div>
+            <div class="value mono" id="benchBal">—</div>
+            <div class="small">“Do nothing clever” benchmark</div>
+          </div>
+          <div class="divider"></div>
+          <p class="tiny">Thought-starters you can reuse as microcopy or posters:</p>
+          <div class="poster-grid" id="posterGrid"></div>
           <div class="actions" style="margin-top:12px">
-            <button class="btn primary" id="btnNext">Next headline →</button>
+            <button class="btn primary" id="btnPlayAgain">Play again</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card score">
-      <div class="row">
-        <div>
-          <div class="label">Starting Bank</div>
-          <div class="value mono" id="startBank">₹0</div>
+    <!-- Right: Scoreboard -->
+    <div class="card sticky">
+      <div class="in">
+        <div class="kpis">
+          <div class="kpi">
+            <div class="label">Starting Bank</div>
+            <div class="value mono" id="startBank">₹0</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Current Bank</div>
+            <div class="value mono" id="currBank">₹0</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Cumulative P&amp;L</div>
+            <div class="value mono" id="cumPnl">₹0</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Avg Daily Return</div>
+            <div class="value mono" id="avgRet">0.00%</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Guesses</div>
+            <div class="value mono" id="guesses">0</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Skips</div>
+            <div class="value mono" id="skips">0</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Always-Long (live)</div>
+            <div class="value mono" id="benchLive">₹0</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Coin Toss Accuracy</div>
+            <div class="value mono" id="coinAcc">~50%</div>
+          </div>
         </div>
-        <div>
-          <div class="label">Current Bank</div>
-          <div class="value mono" id="currBank">₹0</div>
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          <div class="label">Cumulative P&amp;L</div>
-          <div class="value mono" id="cumPnl">₹0</div>
-        </div>
-        <div>
-          <div class="label">Avg Daily Return</div>
-          <div class="value mono" id="avgRet">0.00%</div>
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          <div class="label">Guesses</div>
-          <div class="value mono" id="guesses">0</div>
-        </div>
-        <div>
-          <div class="label">Skips</div>
-          <div class="value mono" id="skips">0</div>
-        </div>
+        <div class="divider"></div>
+        <div class="pillstat"><span>Pack</span><span id="packLabel" class="mono">Demo 30</span></div>
+        <div class="help">Tip: U / D / S / N keyboard shortcuts for Up / Down / Skip / Next.</div>
       </div>
     </div>
   </div>
 
   <footer>
-    Headlines are real and neutral; returns are NIFTY 50 close-to-close on those dates.
-    Prototype for demo only. Sources attributed next to each headline.
+    Demo pack uses neutral-style headlines and simulated closes for offline play. I can swap in verified Indian headlines + actual NIFTY returns on request.
   </footer>
 
 <script>
-const START_BANK = 1000000; // ₹10,00,000 fixed
+/* ————— Utilities ————— */
+function fmtINR(n){
+  try{return n.toLocaleString('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});}
+  catch(e){return '₹'+Math.round(n).toLocaleString('en-IN');}
+}
+function fmtPct(x){ return (x).toFixed(2)+'%'; }
+function clamp(v,min,max){ return Math.min(max,Math.max(min,v)); }
+function mean(a){ return a.length? a.reduce((m,x)=>m+x,0)/a.length : 0; }
 
-// Historical rounds: neutral headlines + actual NIFTY close % that day
-// pct is in percentage terms (e.g., 2.05 = +2.05%)
-const ROUNDS = [
-  {
-    date: "2024-06-07",
-    headline: "Instant view: India cenbank holds rates as widely expected",
-    source: "Reuters",
-    url: "https://www.reuters.com/world/india/view-india-cenbank-holds-rates-widely-expected-2024-06-07/",
-    category: "RBI / MPC",
-    pct: 2.05
-  },
-  {
-    date: "2024-02-01",
-    headline: "India refrains from populist budget before election, trims fiscal deficit",
-    source: "Reuters",
-    url: "https://www.reuters.com/world/india/indias-finance-minister-unveils-budget-says-economy-going-through-profound-2024-02-01/",
-    category: "Budget",
-    pct: -0.13
-  },
-  {
-    date: "2025-05-27",
-    headline: "India retains forecast of above-average monsoon rains",
-    source: "Reuters",
-    url: "https://www.reuters.com/business/environment/india-retains-forecast-above-average-monsoon-rains-2025-05-27/",
-    category: "Monsoon",
-    pct: -0.70
-  },
-  {
-    date: "2025-06-30",
-    headline: "India to see above-average July rains after wetter than normal June",
-    source: "Reuters",
-    url: "https://www.reuters.com/sustainability/land-use-biodiversity/india-poised-above-average-july-rains-after-surplus-june-2025-06-30/",
-    category: "Monsoon",
-    pct: -0.47
-  },
-  {
-    date: "2024-04-05",
-    headline: "India's central bank holds rate, looking for inflation 'elephant' to vanish",
-    source: "Reuters",
-    url: "https://www.reuters.com/world/india/indias-rate-panel-holds-key-repo-rate-steady-expected-2024-04-05/",
-    category: "RBI / MPC",
-    pct: 0.00
-  },
-  {
-    date: "2025-04-15",
-    headline: "Instant View: India's retail inflation slows to over 5-year low in March",
-    source: "Reuters",
-    url: "https://www.reuters.com/world/india/view-indias-retail-inflation-slows-over-5-year-low-march-2025-04-15/",
-    category: "Macro / CPI",
-    pct: 2.19
-  }
+// Simple seeded RNG (Mulberry32) so the pack is reproducible
+function mulberry32(a){return function(){var t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;}}
+function gaussian(rng,mu=0,sigma=1){
+  // Box–Muller using seeded uniform
+  let u=0,v=0; while(u===0) u=rng(); while(v===0) v=rng();
+  const z=Math.sqrt(-2.0*Math.log(u))*Math.cos(2.0*Math.PI*v);
+  return mu + sigma*z;
+}
+
+/* ————— Demo Pack (30 neutral-ish prompts) ————— */
+const DEMO_ROUNDS = [
+  {cat:"RBI / MPC",  src:"Demo",  text:"RBI holds policy rate; guidance stresses inflation risks"},
+  {cat:"Budget",     src:"Demo",  text:"Union Budget focuses on fiscal discipline and capex"},
+  {cat:"Macro / CPI",src:"Demo",  text:"Retail inflation print due this evening"},
+  {cat:"Macro / GDP",src:"Demo",  text:"Quarterly GDP data out; manufacturing in focus"},
+  {cat:"Monsoon",    src:"Demo",  text:"Weather bureau signals above-normal monsoon this month"},
+  {cat:"Geopolitics",src:"Demo",  text:"Major global shipping route faces disruption risk"},
+  {cat:"Oil",        src:"Demo",  text:"Brent crude jumps intraday on supply concerns"},
+  {cat:"Rupee",      src:"Demo",  text:"INR sees sharp intraday move vs USD"},
+  {cat:"Earnings",   src:"Demo",  text:"Large-cap banks kick off quarterly results"},
+  {cat:"US Fed",     src:"Demo",  text:"Fed decision tonight; markets watch dot plot"},
+  {cat:"IPO",        src:"Demo",  text:"Large IPO listing scheduled today"},
+  {cat:"Global Risk",src:"Demo",  text:"Risk-off sentiment after overseas headline"},
+  {cat:"Tech / Reg", src:"Demo",  text:"New data rules draw industry comments"},
+  {cat:"Trade",      src:"Demo",  text:"Tariff discussion heats up with key partner"},
+  {cat:"Macro / IIP",src:"Demo",  text:"Industrial production print expected mixed"},
+  {cat:"Banking",    src:"Demo",  text:"Credit growth steady; deposits trend monitored"},
+  {cat:"Consumption",src:"Demo",  text:"Festive demand commentary mixed across segments"},
+  {cat:"Fertiliser", src:"Demo",  text:"Update on subsidy outlay for the season"},
+  {cat:"Infra",      src:"Demo",  text:"New highway bids and awards announced"},
+  {cat:"Telecom",    src:"Demo",  text:"Spectrum policy update expected this week"},
+  {cat:"Monsoon",    src:"Demo",  text:"Monsoon progress improves in key farm belts"},
+  {cat:"Geopolitics",src:"Demo",  text:"Elections abroad: coalition arithmetic in focus"},
+  {cat:"US Jobs",    src:"Demo",  text:"US jobs data tonight; yields react overseas"},
+  {cat:"Banking",    src:"Demo",  text:"PSU bank divestment chatter resurfaces"},
+  {cat:"Energy",     src:"Demo",  text:"Gas price review due next fortnight"},
+  {cat:"Metals",     src:"Demo",  text:"China stimulus whispers move base metals"},
+  {cat:"Autos",      src:"Demo",  text:"Monthly auto sales prints arrive"},
+  {cat:"Cement",     src:"Demo",  text:"Price discipline checks in key regions"},
+  {cat:"Healthcare", src:"Demo",  text:"USFDA inspection note on large pharma plant"},
+  {cat:"Defense",    src:"Demo",  text:"Large defense order pipeline indicated"}
 ];
 
-// --- Utilities ---
-function fmtINR(n){
-  try{
-    return n.toLocaleString('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});
-  }catch(e){
-    return '₹' + Math.round(n).toLocaleString('en-IN');
-  }
-}
-function fmtPct(x){ return (x).toFixed(2) + '%'; }
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+/* ————— Stability posters ————— */
+const POSTERS = [
+  "Volatility is loud. Stability compounds.",
+  "Skip is a strategy.",
+  "Drawdowns are a tax on compounding.",
+  "Prediction is tempting. Position sizing is wisdom.",
+  "You don’t need perfect calls. You need repeatable habits.",
+  "Upside thrills. Downside kills.",
+  "Time in market beats timing the market.",
+  "Stability creates optionality.",
+  "Survive first. Then get lucky.",
+  "Small edges × many repeats > big bets × sometimes.",
+  "Stability is a speed limit for risk.",
+  "Boring is a feature.",
+  "Avoid ruin. Invite compounding.",
+  "Edge is tiny. Behaviour is everything.",
+  "Headlines move you more than markets.",
+  "Consistency > intensity.",
+  "Protect the base; the rest is upside.",
+  "When in doubt: shrink size, extend time.",
+  "Outcome variance, not just return, decides journeys.",
+  "Stability turns patience into performance."
+];
 
-// --- State ---
-let order = [...ROUNDS];
+/* ————— Game State ————— */
+const START_BANK = 1000000; // ₹10,00,000
+let seed = 123456;          // deterministic demo
+let rng = mulberry32(seed);
+let pack = [...DEMO_ROUNDS];
+let order = [];
 let idx = -1;
 let bank = START_BANK;
+let benchBank = START_BANK; // always-long comparator
 let guesses = 0;
 let skips = 0;
-let returns = []; // in percentage terms (e.g., +1.23 or -0.80), for guesses only
+let returns = [];  // signed % for taken guesses
+let benchReturns = []; // actual market return (simulated) for each round
 
-// --- Elements ---
+/* ————— DOM ————— */
 const elRoundIdx = document.getElementById('roundIdx');
 const elRoundTotal = document.getElementById('roundTotal');
 const elHeadline = document.getElementById('headline');
 const elChipCat = document.getElementById('chipCat');
 const elSrcWrap = document.getElementById('srcWrap');
-const elSrcLink = document.getElementById('srcLink');
-const elDateWrap = document.getElementById('dateWrap');
-const elDateTxt = document.getElementById('dateTxt');
+const elSrcTxt = document.getElementById('srcTxt');
 const elBtnUp = document.getElementById('btnUp');
 const elBtnDown = document.getElementById('btnDown');
 const elBtnSkip = document.getElementById('btnSkip');
@@ -283,13 +335,25 @@ const elRevealText = document.getElementById('revealText');
 const elRoundRet = document.getElementById('roundRet');
 const elNewBal = document.getElementById('newBal');
 const elBtnNext = document.getElementById('btnNext');
-
 const elStartBank = document.getElementById('startBank');
 const elCurrBank = document.getElementById('currBank');
 const elCumPnl = document.getElementById('cumPnl');
 const elAvgRet = document.getElementById('avgRet');
 const elGuesses = document.getElementById('guesses');
 const elSkips = document.getElementById('skips');
+const elBenchLive = document.getElementById('benchLive');
+const elCoinAcc = document.getElementById('coinAcc');
+const elPackLabel = document.getElementById('packLabel');
+const elStageFinal = document.getElementById('stageFinal');
+const elFinalBal = document.getElementById('finalBal');
+const elFinalAcc = document.getElementById('finalAcc');
+const elBenchBal = document.getElementById('benchBal');
+const elPosterGrid = document.getElementById('posterGrid');
+const elStageGame = document.getElementById('stageGame');
+const elPlayAgain = document.getElementById('btnPlayAgain');
+
+/* ————— Helpers ————— */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(rng()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
 function updateScore(){
   elStartBank.textContent = fmtINR(START_BANK);
@@ -299,114 +363,135 @@ function updateScore(){
   elAvgRet.textContent = fmtPct(avg);
   elGuesses.textContent = String(guesses);
   elSkips.textContent = String(skips);
+  elBenchLive.textContent = fmtINR(benchBank);
+  elCoinAcc.textContent = "~50%";
 }
 
 function setButtonsEnabled(enabled){
-  [elBtnUp, elBtnDown, elBtnSkip].forEach(btn => { btn.disabled = !enabled; btn.style.opacity = enabled ? 1 : .6; });
+  [elBtnUp, elBtnDown, elBtnSkip].forEach(b => {
+    b.disabled = !enabled;
+    b.style.opacity = enabled ? 1 : .6;
+  });
 }
 
 function startGame(doShuffle=true){
-  order = [...ROUNDS];
+  rng = mulberry32(seed);         // reset seed (deterministic run)
+  order = [...pack];
   if(doShuffle) shuffle(order);
   idx = -1;
   bank = START_BANK;
+  benchBank = START_BANK;
   guesses = 0;
   skips = 0;
   returns = [];
+  benchReturns = [];
   elRoundTotal.textContent = String(order.length);
   elRoundIdx.textContent = '0';
-  elHeadline.textContent = 'Ready. Press ▲UP or ▼DOWN when the headline appears.';
+  elHeadline.textContent = "Ready. Press ▲UP or ▼DOWN when the headline appears.";
   elChipCat.style.display='none';
   elSrcWrap.style.display='none';
-  elDateWrap.style.display='none';
   elReveal.classList.remove('show');
   setButtonsEnabled(true);
-  nextRound();
+  elStageFinal.classList.remove('show');
+  elStageGame.style.display = 'grid';
   updateScore();
+  nextRound();
 }
 
 function nextRound(){
   idx += 1;
   if(idx >= order.length){
+    // Finale
     setButtonsEnabled(false);
-    elHeadline.textContent = 'Done! You’ve played all headlines in this pack.';
-    elChipCat.style.display='none';
-    elSrcWrap.style.display='none';
-    elDateWrap.style.display='none';
-    elReveal.classList.remove('show');
+    elStageGame.style.display = 'none';
+    elStageFinal.classList.add('show');
+    elFinalBal.textContent = fmtINR(bank);
+    const acc = guesses>0 ? Math.round(returns.filter(x=>x>=0).length*100/guesses) : 0;
+    elFinalAcc.textContent = acc + "%";
+    elBenchBal.textContent = fmtINR(benchBank);
+    // Posters
+    elPosterGrid.innerHTML = '';
+    POSTERS.forEach(line=>{
+      const d=document.createElement('div');
+      d.className='poster';
+      d.textContent=line;
+      elPosterGrid.appendChild(d);
+    });
     return;
   }
   const r = order[idx];
   elRoundIdx.textContent = String(idx+1);
-  elHeadline.textContent = r.headline;
-  elChipCat.textContent = r.category;
+  elHeadline.textContent = r.text;
+  elChipCat.textContent = r.cat;
   elChipCat.style.display='inline-flex';
-  elSrcWrap.style.display='inline-flex';
-  elSrcLink.href = r.url;
-  elSrcLink.textContent = r.source;
-  elDateWrap.style.display='inline-flex';
-  elDateTxt.textContent = r.date;
+  elSrcTxt.textContent = r.src;
+  elSrcWrap.style.display='inline';
   elReveal.classList.remove('show');
   setButtonsEnabled(true);
 }
 
-function guess(dir){ // dir: +1 for UP, -1 for DOWN
-  const r = order[idx];
-  const m = r.pct; // percentage number, e.g., 2.05 = +2.05%
-  const correct = (m > 0 && dir > 0) || (m < 0 && dir < 0) || (m === 0);
-  const roundRetPct = dir * m; // signed percent based on the guess
+function guess(dir){ // +1 up, -1 down
+  const m = gaussian(rng, 0, 1.0); // daily return % (simulated) sigma ~1%
+  benchReturns.push(m);
+  benchBank = benchBank * (1 + (m/100)); // always-long
+
+  const correct = (m>0 && dir>0) || (m<0 && dir<0) || (m===0);
+  const roundRetPct = dir * m; // signed %
   const pnl = bank * (roundRetPct/100);
   bank = Math.max(0, bank + pnl);
   guesses += 1;
   returns.push(roundRetPct);
-  showReveal(r, dir, m, roundRetPct, pnl, correct);
+  showReveal(m, dir, roundRetPct, pnl, correct);
   updateScore();
 }
 
 function skip(){
   skips += 1;
-  const r = order[idx];
-  showReveal(r, 0, r.pct, 0, 0, null);
+  const m = gaussian(rng, 0, 1.0);
+  benchReturns.push(m);
+  benchBank = benchBank * (1 + (m/100));
+  showReveal(m, 0, 0, 0, null);
   updateScore();
 }
 
-function showReveal(r, dir, m, roundRetPct, pnl, correct){
-  const arrow = dir > 0 ? 'UP' : dir < 0 ? 'DOWN' : 'SKIP';
-  const dirTxt = dir === 0 ? 'You skipped this one.' : `Your call: <strong>${arrow}</strong>.`;
-  const sign = m > 0 ? '+' : (m < 0 ? '−' : '');
+function showReveal(m, dir, roundRetPct, pnl, correct){
+  const arrow = dir>0 ? 'UP' : dir<0 ? 'DOWN' : 'SKIP';
+  const sign = m>0 ? '+' : (m<0 ? '−' : '');
   const mAbs = Math.abs(m).toFixed(2);
-  const pnlClass = roundRetPct >= 0 ? 'pnl pos' : 'pnl neg';
-  const pnlSign = roundRetPct >= 0 ? '+' : '−';
+  const pnlClass = roundRetPct>=0 ? 'pnl pos' : 'pnl neg';
+  const pnlSign = roundRetPct>=0 ? '+' : '−';
   const roundAbs = Math.abs(roundRetPct).toFixed(2);
   let verdict = '';
-  if(dir !== 0){
-    verdict = correct ? ' Nice call.' : ' Tough one.';
-  }
-  elRevealText.innerHTML = `NIFTY closed <strong>${sign}${mAbs}%</strong> on <span class="mono">${r.date}</span>. ${dirTxt}<span class="${pnlClass}">${verdict}</span>`;
-  elRoundRet.textContent = (dir === 0) ? '0.00%' : `${pnlSign}${roundAbs}%`;
-  elRoundRet.className = "value mono " + (roundRetPct >= 0 ? 'pos' : 'neg');
+  if(dir!==0){ verdict = correct ? 'Nice call.' : 'Tough one.'; }
+  elRevealText.innerHTML = `NIFTY closed <strong>${sign}${mAbs}%</strong> that day. ${dir===0? 'You skipped.' : 'Your call: <strong>'+arrow+'</strong>.'} <span class="${pnlClass}">${verdict}</span>`;
+  elRoundRet.textContent = (dir===0)? '0.00%' : `${pnlSign}${roundAbs}%`;
+  elRoundRet.className = "value mono " + (roundRetPct>=0 ? 'pos':'neg');
   elNewBal.textContent = fmtINR(bank);
   elReveal.classList.add('show');
   setButtonsEnabled(false);
 }
 
+/* ————— Events ————— */
 document.getElementById('btnUp').addEventListener('click', ()=>guess(1));
 document.getElementById('btnDown').addEventListener('click', ()=>guess(-1));
 document.getElementById('btnSkip').addEventListener('click', skip);
 document.getElementById('btnStart').addEventListener('click', ()=>startGame(true));
-document.getElementById('btnShuffle').addEventListener('click', ()=>startGame(true));
+document.getElementById('btnShuffle').addEventListener('click', ()=>{ seed = Math.floor(Math.random()*1e9)>>>0; startGame(true);} );
 document.getElementById('btnNext').addEventListener('click', nextRound);
+document.getElementById('btnPlayAgain').addEventListener('click', ()=>startGame(true));
 
-// Keyboard shortcuts
+// keyboard
 window.addEventListener('keydown', (e)=>{
-  if(e.key.toLowerCase() === 'u') guess(1);
-  if(e.key.toLowerCase() === 'd') guess(-1);
-  if(e.key.toLowerCase() === 's') skip();
-  if(e.key.toLowerCase() === 'n') nextRound();
+  const k = e.key.toLowerCase();
+  if(k==='u') guess(1);
+  if(k==='d') guess(-1);
+  if(k==='s') skip();
+  if(k==='n') nextRound();
 });
 
-// Boot
-elRoundTotal.textContent = String(ROUNDS.length);
+// boot
+elRoundTotal.textContent = String(DEMO_ROUNDS.length);
+elPackLabel.textContent = "Demo 30";
 updateScore();
 </script>
 </body>
