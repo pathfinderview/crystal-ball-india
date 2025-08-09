@@ -3,24 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crystal Ball — Trading Challenge (India Edition)</title>
-<meta name="description" content="See the news, make a call, and learn why stability beats prediction. A playful, educational trading challenge.">
-<meta name="theme-color" content="#fde7a7">
-<meta property="og:title" content="Crystal Ball — Trading Challenge (India Edition)">
-<meta property="og:description" content="See the news, make a call, and learn why stability beats prediction.">
-<meta property="og:type" content="website">
+<title>Crystal Ball — India</title>
+<meta name="description" content="Read the day’s headline and make one clean wealth decision. Track how compounding reacts to your calls.">
+<meta name="theme-color" content="#f6de9b">
+<meta property="og:title" content="Crystal Ball — India">
+<meta property="og:description" content="Make one clean wealth decision from today-style news. See compounding at work.">
 <style>
   :root{
-    --paper:#fde7a7;         /* ET-ish paper */
-    --paper-2:#fff3c8;
-    --ink:#1f1b15;
-    --muted:#6a5b46;
-    --line:#d7be8a;
-    --cta:#0b5cad;
-    --cta-2:#0f7a48;
-    --chip:#f6d991;
-    --card:#fff7da;
-    --shadow: 0 12px 30px rgba(0,0,0,.08);
+    --paper:#f6de9b;      /* refined newsprint */
+    --paper-2:#fff4c8;
+    --ink:#1c1b19;        /* deep ink */
+    --muted:#6d5f4a;      /* caption */
+    --line:#d9c18d;       /* hairline */
+    --cta:#0b5cad;        /* blue accent */
+    --cta-2:#0f7a48;      /* green accent */
+    --card:#fff7df;       /* soft panel */
+    --chip:#f3d68d;       /* tag */
+    --shadow:0 14px 32px rgba(0,0,0,.08);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -28,200 +27,129 @@
     margin:0; color:var(--ink);
     font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
     background:
-      radial-gradient(1200px 900px at 10% -20%, var(--paper-2), var(--paper) 60%, #f7e3a8 100%),
-      linear-gradient(180deg,#fff5d8,#f5df9f 80%);
+      radial-gradient(1200px 900px at 10% -20%, var(--paper-2), var(--paper) 60%, #f2d78f 100%),
+      linear-gradient(180deg,#fff3cc,#f2d78f 80%);
   }
-  a{color:var(--cta); text-decoration: none}
-  a:hover{text-decoration: underline}
-  .wrap{max-width:1120px; margin:0 auto; padding:0 16px}
-
-  /* Header */
+  a{color:var(--cta);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 16px}
+  /* header */
   header{
-    position:sticky; top:0; z-index:10;
-    background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,0));
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,0));
     border-bottom:1px dashed var(--line);
     backdrop-filter: blur(6px);
   }
-  .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0}
-  .brand{display:flex; align-items:center; gap:10px}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px}
   .logo{width:32px;height:32px;border-radius:6px;background:#111;color:#fff;display:grid;place-items:center;
         font-weight:800;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.3px}
-  .title{margin:0; font-size:18px; letter-spacing:.2px}
+  .title{margin:0;font-size:18px;letter-spacing:.2px}
   .cta{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:10px 14px; border-radius:12px; border:1px solid var(--line);
-    background:linear-gradient(180deg,#fff2b1,#ffe380);
-    font-weight:900; letter-spacing:.3px; color:var(--ink);
-    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;border:1px solid var(--line);
+    background:linear-gradient(180deg,#fff0b8,#ffe180);color:#1c1b19;font-weight:900;letter-spacing:.3px;
+    box-shadow:0 10px 24px rgba(0,0,0,.06);
   }
-
-  /* Hero */
-  .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; padding:28px 0}
-  @media (max-width: 980px){ .hero{grid-template-columns:1fr} }
-  .hero h1{font-size:38px; line-height:1.15; margin:0 0 8px 0}
-  .hero p{margin:0; color:var(--muted)}
-  .hero .actions{display:flex; gap:12px; margin-top:16px; flex-wrap:wrap}
-  .btn{
-    appearance:none; border:1px solid var(--line); border-radius:12px; cursor:pointer;
-    padding:12px 16px; font-weight:900; letter-spacing:.3px; background:#fff4c1;
-    box-shadow:0 6px 16px rgba(0,0,0,.06);
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;padding:28px 0}
+  @media (max-width:980px){.hero{grid-template-columns:1fr}}
+  .hero h1{font-size:42px;line-height:1.12;margin:0 0 10px 0;letter-spacing:.1px}
+  .hero p{margin:0;color:var(--muted)}
+  .actions{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+  .btn{appearance:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:12px 16px;
+       font-weight:900;letter-spacing:.3px;background:#fff4c1;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+  .btn.primary{background:linear-gradient(180deg,#e7f8ec,#d3f2de);border-color:#c3e6cf}
+  .btn.secondary{background:linear-gradient(180deg,#fff4d0,#ffeaa4)}
+  .card{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fff8e6,#fff3d6);box-shadow:var(--shadow)}
+  .in{padding:18px}
+  /* preview */
+  .preview{
+    border:1px dashed var(--line);border-radius:10px;background:#fffdf2;padding:14px;display:grid;gap:10px
   }
-  .btn.play{background:linear-gradient(180deg,#e7f8ec,#d3f2de); border-color:#c3e6cf}
-  .btn.learn{background:linear-gradient(180deg,#fff4d0,#ffeaa4)}
-  .card{
-    border:1px solid var(--line); border-radius:14px; background:linear-gradient(180deg,#fff8e1,#fff4d1);
-    box-shadow: var(--shadow);
-  }
-  .in{padding:16px}
-
-  /* “Front page” preview */
-  .fp{
-    aspect-ratio: 4/5; border:1px dashed var(--line); background:#fffdf2; border-radius:8px; display:grid; gap:6px; padding:10px;
-  }
-  .fp .bar{height:12px; background:#e9e0c9; border-radius:4px}
-  .fp .line{height:8px; background:#efe6cf; border-radius:3px}
-  .fp .blk{height:14px; background:#1f1b15; border-radius:2px} /* “blacked out spoilers” */
-
-  /* Sections */
-  section{padding:28px 0; border-top:1px dashed var(--line)}
-  h2{margin:0 0 8px 0; font-size:22px}
-  .grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px}
-  @media (max-width: 980px){ .grid-3{grid-template-columns:1fr} }
-  .k{padding:14px; border:1px solid var(--line); border-radius:12px; background:var(--card)}
-  .k .big{font-size:18px; font-weight:900}
-  .muted{color:var(--muted)}
-  .chip{display:inline-flex; gap:8px; align-items:center; padding:4px 10px; border:1px solid var(--line); border-radius:999px; background:var(--chip); font-size:12px; font-weight:800; color:#7a5a12}
-
-  /* Stability lines */
-  .poster-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-  @media (max-width: 720px){ .poster-grid{grid-template-columns:1fr} }
-  .poster{
-    border:1px solid var(--line); border-radius:12px; padding:14px; background:#fff8e7; font-weight:800; line-height:1.25;
-    box-shadow:0 8px 18px rgba(0,0,0,.05);
-  }
-
-  /* Footer */
-  footer{padding:20px 0; color:var(--muted); font-size:12px; border-top:1px dashed var(--line); text-align:center}
+  .headline{font-size:24px;line-height:1.25;margin:0;font-weight:800}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+  .chip{display:inline-flex;gap:8px;align-items:center;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--chip);font-size:12px;font-weight:800;color:#7a5a12}
+  /* sections */
+  section{padding:28px 0;border-top:1px dashed var(--line)}
+  h2{margin:0 0 8px 0;font-size:22px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media (max-width:980px){.grid-3{grid-template-columns:1fr}}
+  .k{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+  .k .big{font-size:18px;font-weight:900}
+  /* footer */
+  footer{padding:20px 0;color:var(--muted);font-size:12px;border-top:1px dashed var(--line);text-align:center}
 </style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <div class="brand">
-        <div class="logo">IN</div>
-        <h1 class="title">Crystal Ball — Trading Challenge</h1>
-      </div>
-      <a class="cta" href="#play">Play Free →</a>
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="logo">IN</div>
+      <h1 class="title">Crystal Ball — India</h1>
     </div>
-  </header>
+    <a class="cta" href="play.html">Play now →</a>
+  </div>
+</header>
 
-  <main class="wrap">
-    <!-- HERO -->
-    <div class="hero">
-      <div>
-        <h1>Can you beat the market if you <em>know</em> the news a day early?</h1>
-        <p>See a real front‑page style headline with spoilers masked. Make your call. Then we show what the market actually did. Educational, fast, and brutally honest.</p>
-        <div class="actions">
-          <a class="btn play" href="#play">Play Free</a>
-          <a class="btn learn" href="#how">How it works</a>
-        </div>
-        <p class="muted" style="margin-top:10px">Inspired by Elm Wealth’s original Crystal Ball game (their version used WSJ front pages, S&amp;P 500, and 30‑year Treasuries with sliders). We’ll adapt for India next. </p>
+<main class="wrap">
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <h1>Turn today’s news into one clean wealth decision.</h1>
+      <p>Read a real headline the way people actually read it—unmasked and in context. Make a single call: will your capital grow or shrink by day’s close? Track how compounding reacts to your decisions over a pack of dates.</p>
+      <div class="actions">
+        <a class="btn primary" href="play.html">Play now</a>
+        <a class="btn secondary" href="#how">How it works</a>
       </div>
-      <div class="card">
-        <div class="in">
-          <div class="fp" aria-hidden="true">
-            <div class="bar"></div>
-            <div class="line"></div><div class="line"></div><div class="line"></div>
-            <div class="blk"></div><!-- masked spoiler -->
-            <div class="line"></div><div class="line"></div><div class="line"></div>
-            <div class="blk"></div><!-- masked spoiler -->
-            <div class="line"></div><div class="line"></div>
+      <p class="meta" style="margin-top:10px">No ads. No fees. Just clear decisions and transparent results.</p>
+    </div>
+    <div class="card">
+      <div class="in">
+        <div class="preview">
+          <p class="headline">RBI holds rates; flags inflation risks from global trade and weather</p>
+          <div class="meta">
+            <span class="chip">Today‑style news</span>
+            <span>Source: major outlet</span>
+            <span>Time‑stamp included</span>
           </div>
-          <p class="muted" style="margin:8px 0 0 0; font-size:12px">Mock front page for illustration. The game hides any text that reveals market direction.</p>
+          <p class="meta" style="margin:6px 0 0 0">Make your call. We settle against that day’s NIFTY 50 close vs prior close.</p>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- HOW -->
-    <section id="how">
-      <h2>How it works</h2>
-      <div class="grid-3">
-        <div class="k">
-          <div class="big">1) See the news (spoiler‑free)</div>
-          <p class="muted">You get a real, time‑stamped front page or headline, with any “markets up/down” text blacked out.</p>
-          <span class="chip">Fairness: no spoilers</span>
-        </div>
-        <div class="k">
-          <div class="big">2) Make one big call</div>
-          <p class="muted">Pick <strong>UP</strong> or <strong>DOWN</strong> (simple mode), or set positions on <strong>NIFTY 50</strong> and <strong>10Y G‑Sec</strong> (pro mode) with caps on leverage.</p>
-          <span class="chip">Skip allowed</span>
-        </div>
-        <div class="k">
-          <div class="big">3) See your results</div>
-          <p class="muted">We settle at that day’s close against the prior close. No fees, no financing. You’ll track P&amp;L, hit rate, and average daily return.</p>
-          <span class="chip">Transparent math</span>
-        </div>
+  <!-- HOW -->
+  <section id="how">
+    <h2>How it works</h2>
+    <div class="grid-3">
+      <div class="k">
+        <div class="big">1) See the headline</div>
+        <p class="meta">We show a real, time‑stamped headline (unmasked). You read it as you normally would.</p>
       </div>
-      <p class="muted" style="margin-top:10px; font-size:12px">Elm’s original game describes the same spirit—random historical days, ability to skip, and up to 50× leverage in their pro version. :contentReference[oaicite:1]{index=1}</p>
-    </section>
-
-    <!-- PLAY (anchor only for now; game page coming next step) -->
-    <section id="play">
-      <h2>Ready to try?</h2>
-      <div class="card">
-        <div class="in">
-          <p><strong>Two modes</strong> (we’ll wire these up in the next step):</p>
-          <ul>
-            <li><strong>Yes/No Mode:</strong> You see a headline and choose <em>UP</em> or <em>DOWN</em>.</li>
-            <li><strong>Pro Mode:</strong> Sliders for <em>NIFTY 50</em> and <em>10Y G‑Sec price</em> (price ↓ when yield ↑), leverage capped.</li>
-          </ul>
-          <div class="actions">
-            <a class="btn play" href="#next">Play Yes/No</a>
-            <a class="btn" href="#next">Try Pro Mode</a>
-          </div>
-          <p class="muted" style="margin-top:8px; font-size:12px">We’ll connect this button to the actual game view once we ship the next piece.</p>
-        </div>
+      <div class="k">
+        <div class="big">2) Make a wealth decision</div>
+        <p class="meta">Pick <strong>UP</strong> or <strong>DOWN</strong>. It’s not about being clever—it’s about being consistent.</p>
       </div>
-    </section>
-
-    <!-- WHY STABILITY -->
-    <section id="stability">
-      <h2>Why stability beats prediction</h2>
-      <div class="poster-grid">
-        <div class="poster">Volatility is loud. Stability compounds.</div>
-        <div class="poster">Skip is a strategy.</div>
-        <div class="poster">Drawdowns are a tax on compounding.</div>
-        <div class="poster">Small edges × many repeats &gt; big bets × sometimes.</div>
-        <div class="poster">Protect the base; the rest is upside.</div>
-        <div class="poster">Time in market beats timing the market.</div>
+      <div class="k">
+        <div class="big">3) Watch compounding respond</div>
+        <p class="meta">We update your bank after each round and show cumulative P&amp;L and average daily return.</p>
       </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <h2>FAQ</h2>
-      <div class="grid-3">
-        <div class="k">
-          <div class="big">What sources do you use?</div>
-          <p class="muted">For India, neutral headlines from reliable outlets and official releases; “spoiler” words are filtered out.</p>
-        </div>
-        <div class="k">
-          <div class="big">How many days?</div>
-          <p class="muted">We’ll start with ~15–30 historical rounds so you can play in one go (no daily drops).</p>
-        </div>
-        <div class="k">
-          <div class="big">Is this investing advice?</div>
-          <p class="muted">No. This is an educational game about decision‑making under uncertainty.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">
-      <p>Made for learning and fun. Inspired by the original “Crystal Ball” concept from Elm Wealth. :contentReference[oaicite:2]{index=2}</p>
-      <p>&copy; 2025 • India Edition prototype</p>
     </div>
-  </footer>
+  </section>
+
+  <!-- Notes -->
+  <section id="notes">
+    <h2>Designed to teach, not to hype</h2>
+    <div class="k" style="margin-top:8px">
+      <p class="meta">This is a decision‑making exercise. Headlines are shown as published; outcomes are based on the NIFTY 50 close‑to‑close return for those dates. No leverage sliders, no distractions—just a clean loop that lets you see how your choices affect wealth over time.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2025 • Crystal Ball — India • Educational prototype</p>
+  </div>
+</footer>
 </body>
 </html>
