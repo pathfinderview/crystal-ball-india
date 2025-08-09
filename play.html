@@ -1,245 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crystal Ball — Play</title>
-<meta name="description" content="Monthly headline → one wealth decision. Right/Wrong, monthly return, and annualized return, with an end-path summary.">
+<meta name="description" content="Monthly headline → one wealth decision. Right/Wrong, monthly return, annualised return, with an end-path summary.">
 <style>
   :root{
     --ink:#0b1b2b; --ink-2:#132a40; --paper:#f7f6f3; --line:#d9d7d2; --muted:#6a7380;
-    --up:#1f7a5e; --down:#b02a2a; --card:#ffffff; --shadow:0 14px 34px rgba(9,18,28,0.12);
+    --up:#1f7a5e; --down:#b02a2a; --card:#ffffff; --shadow:0 14px 34px rgba(9,18,28,.12);
   }
   *{box-sizing:border-box}
-  body{
-    margin:0;color:var(--ink);
-    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-    background:
-      radial-gradient(1200px 900px at 10% -20%, #fbfaf7, var(--paper) 60%, #f0efe9 100%),
-      linear-gradient(180deg,#fbfbfb,#f0efe9 80%);
-  }
+  body{margin:0;color:var(--ink);font-family:ui-serif,Georgia,"Times New Roman",Times,serif;
+    background:radial-gradient(1200px 900px at 10% -20%,#fbfaf7,var(--paper) 60%,#f0efe9 100%),linear-gradient(180deg,#fbfbfb,#f0efe9 80%)}
   a{color:#276fca;text-decoration:none}
-  header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,0));border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(8px)}
+  header{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,0));border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(8px)}
   .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
   .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
   .title{margin:0;font-size:18px;color:var(--ink-2)}
-  .layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;padding:18px 0}
-  @media (max-width:980px){.layout{grid-template-columns:1fr}}
+  .layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;padding:18px 0} @media(max-width:980px){.layout{grid-template-columns:1fr}}
   .card{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow)}
   .in{padding:18px}
-  /* article window */
   .article{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
-  .masthead{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fafafa,#f4f6f8)}
-  .papername{font-weight:900;letter-spacing:.5px}
+  .mast{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fafafa,#f4f6f8)}
+  .paper{font-weight:900;letter-spacing:.5px}
   .dateline{font-size:12px;color:var(--muted)}
-  .headline{font-size:24px;line-height:1.25;margin:14px;font-weight:800}
-  .deck{margin:0 14px 14px;color:#4a5563}
+  .h{font-size:24px;line-height:1.25;margin:14px;font-weight:800}
+  .deck{margin:0 14px 8px;color:#4a5563}
   .by{margin:0 14px 14px;color:#6b7280;font-size:12px}
-  /* controls */
-  .mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-  .topbar{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
+  .topbar{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}.mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
   .pill{display:inline-flex;gap:8px;align-items:center;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:#f4f7fa;font-size:12px;font-weight:800;color:#445}
   .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
   .btn{appearance:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:12px 16px;font-weight:900;background:#f6f9ff}
   .btn.up{background:linear-gradient(180deg,#e6f4ee,#d8efe6);border-color:#cde6db}
   .btn.down{background:linear-gradient(180deg,#fee9ea,#ffdede);border-color:#f1c1c1}
   .btn.skip{background:linear-gradient(180deg,#fdf8e8,#fff2c8)}
-  .msg{margin-top:10px;color:var(--muted);font-size:12px}
-  /* reveal toast */
-  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);padding:10px 14px;border-radius:12px;background:#111;color:#fff;opacity:0;pointer-events:none;transition:opacity .2s ease}
-  .toast.show{opacity:0.95}
-  /* scoreboard */
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media (max-width:520px){.grid-2{grid-template-columns:1fr}}
-  .kpi{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
-  .kpi .lab{color:var(--muted);font-size:12px}
-  .kpi .val{font-weight:900}
+  .toast{position:fixed;left:50%;top:10px;transform:translateX(-50%);padding:10px 14px;border-radius:12px;background:#0b1b2b;color:#fff;opacity:0;pointer-events:none;transition:opacity .15s ease}
+  .toast.show{opacity:.98}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px} @media(max-width:520px){.grid-2{grid-template-columns:1fr}}
+  .kpi{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}.lab{color:var(--muted);font-size:12px}.val{font-weight:900}
   footer{padding:18px 0;color:#6a7380;font-size:12px;border-top:1px solid var(--line);text-align:center}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <h1 class="title">Crystal Ball — Play</h1>
-    <a href="index.html">← Back</a>
-  </div>
-</header>
+<header><div class="wrap nav"><h1 class="title">Crystal Ball — Play</h1><a href="index.html">← Back</a></div></header>
 
 <main class="wrap layout">
   <!-- Game -->
-  <div class="card">
-    <div class="in">
-      <div class="topbar mono">
-        <div>Month <span id="i">0</span>/<span id="n">0</span></div>
-        <div>Bank: <span id="bank">₹0</span></div>
-      </div>
-
-      <div class="article" aria-label="Article">
-        <div class="masthead">
-          <div class="papername">Daily Ledger</div>
-          <div class="dateline"><span id="date">—</span></div>
-        </div>
-        <h2 id="headline" class="headline">Press “Start” to begin.</h2>
-        <p id="deck" class="deck"></p>
-        <p id="by" class="by"></p>
-      </div>
-
-      <div class="buttons">
-        <button class="btn up"   id="up">▲ UP</button>
-        <button class="btn down" id="down">▼ DOWN</button>
-        <button class="btn skip" id="skip">Skip</button>
-        <button class="btn"      id="start">Start</button>
-      </div>
-      <p class="msg">Monthly cadence. We settle on the NIFTY 50 month‑end close vs prior month‑end close. Auto‑advance after each choice.</p>
+  <div class="card"><div class="in">
+    <div class="topbar mono"><div>Month <span id="i">0</span>/<span id="n">0</span></div><div>Bank: <span id="bank">₹0</span></div></div>
+    <div class="article" aria-label="Article">
+      <div class="mast"><div class="paper">Daily Ledger</div><div class="dateline"><span id="date">—</span></div></div>
+      <h2 id="headline" class="h">Press “Start” to begin.</h2>
+      <p id="deck" class="deck"></p>
+      <p id="by" class="by"></p>
     </div>
-  </div>
+    <div class="buttons">
+      <button class="btn up"   id="up">▲ UP</button>
+      <button class="btn down" id="down">▼ DOWN</button>
+      <button class="btn skip" id="skip">Skip</button>
+      <button class="btn"      id="start">Start</button>
+    </div>
+    <p class="mono" style="margin-top:8px;color:#6a7380">Monthly cadence. We settle using the NIFTY 50 month‑end close vs prior month‑end close. Choosing auto‑advances.</p>
+  </div></div>
 
   <!-- Scoreboard -->
-  <div class="card">
-    <div class="in">
-      <div class="grid-2">
-        <div class="kpi"><div class="lab">Starting bank</div><div id="sb"  class="val mono">₹0</div></div>
-        <div class="kpi"><div class="lab">Current bank</div> <div id="cb"  class="val mono">₹0</div></div>
-        <div class="kpi"><div class="lab">Right / Wrong</div><div id="rw"  class="val mono">0 / 0</div></div>
-        <div class="kpi"><div class="lab">Skips</div>        <div id="sk"  class="val mono">0</div></div>
-        <div class="kpi"><div class="lab">Avg monthly return</div><div id="am" class="val mono">0.00%</div></div>
-        <div class="kpi"><div class="lab">Annualized (CAGR)</div><div id="cagr" class="val mono">0.00%</div></div>
-      </div>
+  <div class="card"><div class="in">
+    <div class="grid-2">
+      <div class="kpi"><div class="lab">Starting bank</div><div id="sb"   class="val mono">₹0</div></div>
+      <div class="kpi"><div class="lab">Current bank</div>  <div id="cb"   class="val mono">₹0</div></div>
+      <div class="kpi"><div class="lab">Right / Wrong</div> <div id="rw"   class="val mono">0 / 0</div></div>
+      <div class="kpi"><div class="lab">Skips</div>         <div id="sk"   class="val mono">0</div></div>
+      <div class="kpi"><div class="lab">Avg monthly return</div><div id="am" class="val mono">0.00%</div></div>
+      <div class="kpi"><div class="lab">Annualized (CAGR)</div><div id="cagr" class="val mono">0.00%</div></div>
     </div>
-  </div>
+  </div></div>
 </main>
 
 <div id="toast" class="toast mono">—</div>
-
-<footer>
-  <div class="wrap">
-    <p>Educational prototype. Headlines are real‑style and sourced (e.g., Reuters / official). In production, we’ll wire verified links + actual NIFTY closes for each month.</p>
-  </div>
-</footer>
+<footer><div class="wrap"><p>Educational prototype. Headlines use real‑style sources (e.g., Reuters/official). In production, we wire verified links + actual NIFTY closes for each item.</p></div></footer>
 
 <script>
-/* Utilities */
+/* ------- Utilities ------- */
 function INR(n){try{return n.toLocaleString('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});}catch(e){return '₹'+Math.round(n).toLocaleString('en-IN');}}
 function pct(x){return (x).toFixed(2)+'%';}
-function mean(a){return a.length ? a.reduce((m,x)=>m+x,0)/a.length : 0;}
+function mean(a){return a.length? a.reduce((m,x)=>m+x,0)/a.length : 0;}
 function cagr(start, end, months){ if(months<=0) return 0; return Math.pow(end/start, 12/months)-1; }
-function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 900); }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 1100); }
+function humanReason(r){
+  // Simple “conversation” snippets keyed to surprising outcomes
+  if(r.expect === 'up' && r.pct < 0) return "Felt bullish, still fell — positioning and profit‑taking can overpower good news.";
+  if(r.expect === 'down' && r.pct > 0) return "Looked scary, finished green — markets had already priced the fear in.";
+  if(Math.abs(r.pct) < 0.2) return "Headline noise, muted index — breadth rotated under the hood.";
+  return "It’s difficult — headlines ≠ outcomes, flows matter.";
+}
 
-/* Monthly pack (12 rounds). Mix of “obvious” and “gotcha” months.
-   pct = actual NIFTY month return in % (demo uses curated/simulated values; replace with real).
-   src: show Reuters/official when available (add url later).
-*/
-const ROUNDS = [
-  {month:"Jan 2025",  date:"2025‑01‑31", src:"Reuters", cat:"Budget run‑up",   headline:"Govt signals fiscal prudence; equity flows steady", deck:"Markets weigh capex vs deficit math.", pct:+0.6},
-  {month:"Feb 2025",  date:"2025‑02‑28", src:"Reuters", cat:"Budget",          headline:"Interim budget trims deficit; capex push maintained", deck:"Street expects green—gotcha month.", pct:-0.4}, // gotcha
-  {month:"Mar 2025",  date:"2025‑03‑31", src:"Official",cat:"CPI cools",       headline:"Retail inflation eases; policy watchers see room later", deck:"Soft inflation ≠ instant rallies.", pct:+0.3},
-  {month:"Apr 2025",  date:"2025‑04‑30", src:"Reuters", cat:"CPI surprise",    headline:"Inflation slows sharply; calls for rate cut rise", deck:"Feels bullish—gotcha month.", pct:-0.7}, // gotcha
-  {month:"May 2025",  date:"2025‑05‑30", src:"Reuters", cat:"Monsoon",         headline:"IMD retains above‑normal monsoon forecast", deck:"Good for agri—market still cautious.", pct:-0.2}, // gotcha
-  {month:"Jun 2025",  date:"2025‑06‑30", src:"Reuters", cat:"Monsoon update",  headline:"June rains above normal; July seen average", deck:"Headline positive, breadth mixed.", pct:-0.5}, // gotcha
-  {month:"Jul 2025",  date:"2025‑07‑31", src:"Reuters", cat:"Inflation cools", headline:"Cooling inflation prompts dovish commentary", deck:"Less pressure on rates.", pct:+1.1},
-  {month:"Aug 2024",  date:"2024‑08‑30", src:"Reuters", cat:"US jobs",         headline:"US jobs print tonight; global yields wobble", deck:"Risk‑off chatter into the close.", pct:-0.6},
-  {month:"Sep 2024",  date:"2024‑09‑30", src:"Reuters", cat:"IPO wave",        headline:"Large IPOs list; liquidity rotates", deck:"Exciting tape, index flat.", pct:+0.1},
-  {month:"Oct 2024",  date:"2024‑10‑31", src:"Reuters", cat:"Oil spike",       headline:"Oil volatility returns on supply headlines", deck:"Feels bearish—gotcha month.", pct:+0.5}, // gotcha
-  {month:"Nov 2024",  date:"2024‑11‑29", src:"Reuters", cat:"Global risk",     headline:"Overseas elections add uncertainty", deck:"Nervy but contained.", pct:-0.3},
-  {month:"Dec 2024",  date:"2024‑12‑31", src:"Official",cat:"Growth",          headline:"GDP outlook reiterated; capex trackers firm", deck:"Quiet grind higher.", pct:+0.4}
-];
-
+/* ------- State ------- */
 const START=1000000; // ₹10,00,000
-let i=-1, bank=START, wins=0, losses=0, skips=0, rets=[], played=0;
+let i=-1, bank=START, wins=0, losses=0, skips=0, monthsPlayed=0, monthRets=[]; // monthRets store underlying % per decision
 
-/* DOM */
-const eI  = document.getElementById('i');
-const eN  = document.getElementById('n');
-const eBANK=document.getElementById('bank');
-const eDATE=document.getElementById('date');
-const eH  = document.getElementById('headline');
-const eD  = document.getElementById('deck');
-const eBY = document.getElementById('by');
-const eUP = document.getElementById('up');
-const eDN = document.getElementById('down');
-const eSK = document.getElementById('skip');
-const eST = document.getElementById('start');
-const eSB = document.getElementById('sb');
-const eCB = document.getElementById('cb');
-const eRW = document.getElementById('rw');
-const eSKS= document.getElementById('sk');
-const eAM = document.getElementById('am');
-const eCAGR=document.getElementById('cagr');
+/* ------- DOM ------- */
+const eI  = document.getElementById('i'), eN  = document.getElementById('n');
+const eBANK=document.getElementById('bank'), eDATE=document.getElementById('date');
+const eH  = document.getElementById('headline'), eD  = document.getElementById('deck'), eBY = document.getElementById('by');
+const eUP = document.getElementById('up'), eDN = document.getElementById('down'), eSK = document.getElementById('skip'), eST = document.getElementById('start');
+const eSB = document.getElementById('sb'), eCB = document.getElementById('cb'), eRW = document.getElementById('rw'), eSKS= document.getElementById('sk'), eAM = document.getElementById('am'), eCAGR=document.getElementById('cagr');
+const eToast=document.getElementById('toast');
 
-eN.textContent=String(ROUNDS.length);
-[eSB,eCB,eBANK].forEach(el=>el.textContent=INR(START));
-updateScore();
+/* ------- Data load ------- */
+let PACK=[];
+fetch('data/questions.json').then(r=>r.json()).then(init);
 
-/* helpers */
+function init(rows){
+  PACK = rows; // [{date, month, headline, url, source, expect, nifty_close, prev_close, pct}]
+  eN.textContent = String(PACK.length);
+  [eSB,eCB,eBANK].forEach(el=>el.textContent=INR(START));
+  updateScore();
+}
+
 function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
 function updateScore(){
-  eCB.textContent=INR(bank);
-  eBANK.textContent=INR(bank);
-  eRW.textContent=`${wins} / ${losses}`;
-  eSKS.textContent=String(skips);
-  const avg=rets.length? mean(rets):0;
-  eAM.textContent=pct(avg);
-  const months=played; // number of decisions taken (exclude skips)
-  eCAGR.textContent=months? pct(cagr(START, bank, months)*100):'0.00%';
+  eCB.textContent=INR(bank); eBANK.textContent=INR(bank);
+  eRW.textContent=`${wins} / ${losses}`; eSKS.textContent=String(skips);
+  const avg = monthRets.length? mean(monthRets):0; eAM.textContent=pct(avg);
+  const k = monthsPlayed? cagr(START, bank, monthsPlayed)*100 : 0; eCAGR.textContent=pct(k);
 }
-function enable(b){ [eUP,eDN,eSK].forEach(x=>{x.disabled=!b;x.style.opacity=b?1:.6;}); }
-function showRound(r){
-  eI.textContent=String(i+1);
-  eDATE.textContent = `${r.month} • ${r.date}`;
-  eH.textContent = r.headline;
-  eD.textContent = r.deck;
-  eBY.textContent = `Source: ${r.src} • Category: ${r.cat}`;
-}
+function enable(b){[eUP,eDN,eSK].forEach(x=>{x.disabled=!b;x.style.opacity=b?1:.6;});}
 
-/* flow */
 function start(){
-  shuffle(ROUNDS);
-  i=-1; bank=START; wins=0; losses=0; skips=0; rets=[]; played=0;
-  eI.textContent='0';
-  eH.textContent='Ready. Press UP or DOWN when the headline appears.';
-  eD.textContent='Monthly headline, as published.';
-  eBY.textContent='';
+  shuffle(PACK); i=-1; bank=START; wins=0; losses=0; skips=0; monthsPlayed=0; monthRets=[];
+  eI.textContent='0'; eH.textContent='Ready. Press UP or DOWN when the headline appears.'; eD.textContent='Monthly headline, as published.'; eBY.textContent='';
   updateScore(); enable(true); next();
 }
 function next(){
-  i+=1;
-  if(i>=ROUNDS.length){ return finish(); }
-  showRound(ROUNDS[i]);
+  i+=1; if(i>=PACK.length){ return finish(); }
+  const r=PACK[i];
+  eI.textContent=String(i+1);
+  eDATE.textContent = `${r.month || ''} • ${r.date}`;
+  eH.textContent = r.headline;
+  eD.textContent = r.deck || '';
+  const src = r.source || 'Source'; const link = r.url ? `<a href="${r.url}" target="_blank" rel="noopener">link</a>` : '';
+  eBY.innerHTML = `${src}${link? ' • ' + link : ''}`;
 }
 function decide(dir){ // +1 up, -1 down, 0 skip
-  const r=ROUNDS[i];
-  const m=r.pct; // monthly return in %
-  if(dir===0){ skips+=1; toast('Skipped'); setTimeout(next, 350); updateScore(); return; }
-  const correct=(m>0 && dir>0) || (m<0 && dir<0) || (m===0);
+  const r=PACK[i]; const m = Number(r.pct); // underlying month % change
+  if(dir===0){ skips+=1; toast('Skipped'); setTimeout(next, 500); updateScore(); return; }
+  const correct = (m>0 && dir>0) || (m<0 && dir<0) || (m===0);
   correct ? wins++ : losses++;
-  const rr = dir*m;               // signed monthly return for your call
-  const pnl = bank*(rr/100);
-  bank = Math.max(0, bank+pnl);
-  rets.push(m);                   // track the underlying month’s % for avg monthly
-  played++;
-  toast(`${correct?'Right':'Wrong'} • ${rr>=0?'+':'−'}${Math.abs(rr).toFixed(2)}%`);
-  updateScore();
-  setTimeout(next, 450);          // auto‑advance
+  const rr = dir*m; const pnl = bank*(rr/100); bank = Math.max(0, bank+pnl);
+  monthsPlayed++; monthRets.push(m);
+  const verdict = correct? 'Right' : 'Wrong';
+  toast(`${verdict} • ${rr>=0?'+':'−'}${Math.abs(rr).toFixed(2)}% — ${humanReason(r)}`);
+  updateScore(); setTimeout(next, 900);
 }
 function finish(){
   enable(false);
-  // pathing
-  const months = played;
-  const k = months? (cagr(START, bank, months)*100):0;
-  const acc = (wins+losses)>0 ? Math.round((wins/(wins+losses))*100) : 0;
-  let msgTitle = `You got ${wins} out of ${wins+losses} right`;
-  let comp = k>=0 ? `you are ${k.toFixed(2)}% ahead` : `you are ${Math.abs(k).toFixed(2)}% behind`;
+  const accPct = (wins+losses)>0 ? Math.round((wins/(wins+losses))*100) : 0;
+  const k = monthsPlayed ? cagr(START, bank, monthsPlayed)*100 : 0;
+  const leadTrail = k>=0 ? `you are ${k.toFixed(2)}% ahead` : `you are ${Math.abs(k).toFixed(2)}% behind`;
   let advisory = '';
-  if(acc>=65 && k>5){
-    advisory = "Strong calls. Even then, anchoring with high‑quality fixed income can stabilise outcomes when headlines mislead.";
-  }else if(acc>=50 && k>=0){
-    advisory = "Decent reads. A core allocation to fixed income helps smooth the journey—and protects gains when markets zigzag.";
+  if(accPct>=65 && k>5){
+    advisory = "Nice run. Even so, anchoring with high‑quality fixed income can stabilise outcomes when headlines mislead.";
+  }else if(accPct>=50 && k>=0){
+    advisory = "Decent reads. A core fixed‑income allocation helps smooth the journey—and protects gains when markets zigzag.";
   }else{
     advisory = "Tough tape. This is why a reliable fixed‑income base matters—so your plan isn’t hostage to monthly surprises.";
   }
-  const end = `${msgTitle}, which means ${comp}. ${advisory}`;
-  alert(end); // simple end screen; can be replaced by a styled modal
-  // optional: offer replay
+  alert(`You got ${wins} out of ${wins+losses} right, which means ${leadTrail}. ${advisory}`);
 }
 
 /* events */
@@ -248,7 +174,6 @@ document.getElementById('down').onclick = ()=>decide(-1);
 document.getElementById('skip').onclick = ()=>decide(0);
 document.getElementById('start').onclick= start;
 window.addEventListener('keydown',(e)=>{const k=e.key.toLowerCase();if(k==='u')decide(+1);if(k==='d')decide(-1);if(k==='s')decide(0);});
-
 </script>
 </body>
 </html>
