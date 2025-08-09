@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crystal Ball — India (Yes/No)</title>
+<meta name="description" content="A tiny game: see a real Indian headline, guess if NIFTY 50 closed up or down that day, and see how your bankroll would have changed.">
+<style>
+  :root{
+    --paper:#fde7a7; /* ET-ish yellow */
+    --paper-2:#fff5cc;
+    --ink:#2a251f;
+    --muted:#6b5c4a;
+    --accent:#0f7a48; /* up */
+    --danger:#b42318; /* down */
+    --pill:#f7d58a;
+    --border:#d1b574;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 800px at 20% -10%, var(--paper-2), var(--paper) 50%, #f8e2a0 100%),
+      linear-gradient(180deg, #fff5d6 0%, #f7e0a3 100%);
+  }
+  header{
+    padding:22px 18px;
+    border-bottom:1px dashed var(--border);
+    background:linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0));
+  }
+  header .brand{
+    display:flex;align-items:center;gap:10px;
+  }
+  .logo{
+    width:28px;height:28px;border-radius:4px;background:#1a1a1a;color:#fff;
+    display:grid;place-items:center;font-weight:700;letter-spacing:0.5px;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  h1{margin:0;font-size:22px;letter-spacing:.2px}
+  .sub{margin:6px 0 0 0;color:var(--muted);font-size:13px}
+
+  .wrap{max-width:980px;margin:0 auto;padding:16px;display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
+  @media (max-width: 900px){ .wrap{grid-template-columns:1fr} }
+
+  .card{
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.25));
+    box-shadow:0 14px 30px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.5);
+  }
+  .card .in{padding:16px}
+  .headline{
+    font-size:24px;line-height:1.25;margin:0 0 10px 0;font-weight:700;
+  }
+  .meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted);font-size:13px}
+  .chip{background:var(--pill);border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-weight:700;font-size:12px;color:#7a5a12}
+  .src a{color:inherit;text-decoration:underline dotted}
+  .muted{color:var(--muted)}
+  .hero{padding:14px 16px;border-bottom:1px dashed var(--border);display:flex;justify-content:space-between;gap:8px;align-items:center}
+  .progress{font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;}
+
+  .actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .btn{
+    appearance:none;border:1px solid var(--border);background:#fff3c4;cursor:pointer;
+    padding:12px 16px;border-radius:12px;font-weight:800;letter-spacing:.3px;font-size:16px;
+    box-shadow:0 6px 16px rgba(0,0,0,.05);transition:transform .02s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn:hover{box-shadow:0 8px 20px rgba(0,0,0,.08)}
+  .btn:active{transform:translateY(1px)}
+  .btn.up{background:linear-gradient(180deg, #e7fbec, #d1f6e0);border-color:#bde5c9}
+  .btn.down{background:linear-gradient(180deg, #feecec, #fbdada);border-color:#f5b6b1}
+  .btn.skip{background:linear-gradient(180deg, #fff6e4, #ffefc4);border-color:#efdc9c}
+  .btn.primary{background:linear-gradient(180deg, #fff0b3, #ffe48a);border-color:#e5c46a}
+
+  .reveal{
+    margin-top:14px;padding:14px;border-radius:12px;border:1px solid var(--border);
+    background:linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,.35));
+    display:none;
+  }
+  .reveal.show{display:block}
+  .pnl{font-size:18px;font-weight:800}
+  .pnl.pos{color:var(--accent)}
+  .pnl.neg{color:var(--danger)}
+  .mono{font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;}
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width: 520px){ .kpis{grid-template-columns:1fr} }
+
+  .score .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 16px;border-bottom:1px dashed var(--border)}
+  .score .row:last-child{border-bottom:0}
+  .score .label{font-size:12px;color:var(--muted)}
+  .score .value{font-size:18px;font-weight:800}
+
+  footer{max-width:980px;margin:16px auto;padding:12px 16px;color:var(--muted);font-size:12px;text-align:center}
+  .help{font-size:12px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">IN</div>
+      <div>
+        <h1>Crystal Ball — India (Yes/No)</h1>
+        <p class="sub">See a real headline. Guess if <strong>NIFTY 50</strong> closed <strong>UP</strong> or <strong>DOWN</strong> that day. Track your cumulative P&amp;L.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="hero">
+        <div class="progress mono"><span id="roundIdx">0</span>/<span id="roundTotal">0</span></div>
+        <div class="actions">
+          <button class="btn primary" id="btnStart">Start / Reset</button>
+          <button class="btn skip" id="btnShuffle">Shuffle</button>
+        </div>
+      </div>
+      <div class="in">
+        <h2 id="headline" class="headline">Press “Start / Reset” to get your first headline.</h2>
+        <div class="meta">
+          <span id="chipCat" class="chip" style="display:none;">Category</span>
+          <span class="src" id="srcWrap" style="display:none;">Source: <a id="srcLink" href="#" target="_blank" rel="noopener">—</a></span>
+          <span class="muted" id="dateWrap" style="display:none;">• <span id="dateTxt"></span></span>
+        </div>
+
+        <div class="actions">
+          <button class="btn up" id="btnUp">▲ UP</button>
+          <button class="btn down" id="btnDown">▼ DOWN</button>
+          <button class="btn skip" id="btnSkip">Skip</button>
+        </div>
+        <div class="help">Rule: close vs prior close. 1× exposure. Skip keeps your balance unchanged.</div>
+
+        <div class="reveal" id="revealBox">
+          <div id="revealText"></div>
+          <div class="kpis" style="margin-top:8px">
+            <div>
+              <div class="label">Round Return</div>
+              <div class="value mono" id="roundRet">—</div>
+            </div>
+            <div>
+              <div class="label">New Balance</div>
+              <div class="value mono" id="newBal">—</div>
+            </div>
+          </div>
+          <div class="actions" style="margin-top:12px">
+            <button class="btn primary" id="btnNext">Next headline →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card score">
+      <div class="row">
+        <div>
+          <div class="label">Starting Bank</div>
+          <div class="value mono" id="startBank">₹0</div>
+        </div>
+        <div>
+          <div class="label">Current Bank</div>
+          <div class="value mono" id="currBank">₹0</div>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <div class="label">Cumulative P&amp;L</div>
+          <div class="value mono" id="cumPnl">₹0</div>
+        </div>
+        <div>
+          <div class="label">Avg Daily Return</div>
+          <div class="value mono" id="avgRet">0.00%</div>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <div class="label">Guesses</div>
+          <div class="value mono" id="guesses">0</div>
+        </div>
+        <div>
+          <div class="label">Skips</div>
+          <div class="value mono" id="skips">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Headlines are real and neutral; returns are NIFTY 50 close-to-close on those dates.
+    Prototype for demo only. Sources attributed next to each headline.
+  </footer>
+
+<script>
+const START_BANK = 1000000; // ₹10,00,000 fixed
+
+// Historical rounds: neutral headlines + actual NIFTY close % that day
+// pct is in percentage terms (e.g., 2.05 = +2.05%)
+const ROUNDS = [
+  {
+    date: "2024-06-07",
+    headline: "Instant view: India cenbank holds rates as widely expected",
+    source: "Reuters",
+    url: "https://www.reuters.com/world/india/view-india-cenbank-holds-rates-widely-expected-2024-06-07/",
+    category: "RBI / MPC",
+    pct: 2.05
+  },
+  {
+    date: "2024-02-01",
+    headline: "India refrains from populist budget before election, trims fiscal deficit",
+    source: "Reuters",
+    url: "https://www.reuters.com/world/india/indias-finance-minister-unveils-budget-says-economy-going-through-profound-2024-02-01/",
+    category: "Budget",
+    pct: -0.13
+  },
+  {
+    date: "2025-05-27",
+    headline: "India retains forecast of above-average monsoon rains",
+    source: "Reuters",
+    url: "https://www.reuters.com/business/environment/india-retains-forecast-above-average-monsoon-rains-2025-05-27/",
+    category: "Monsoon",
+    pct: -0.70
+  },
+  {
+    date: "2025-06-30",
+    headline: "India to see above-average July rains after wetter than normal June",
+    source: "Reuters",
+    url: "https://www.reuters.com/sustainability/land-use-biodiversity/india-poised-above-average-july-rains-after-surplus-june-2025-06-30/",
+    category: "Monsoon",
+    pct: -0.47
+  },
+  {
+    date: "2024-04-05",
+    headline: "India's central bank holds rate, looking for inflation 'elephant' to vanish",
+    source: "Reuters",
+    url: "https://www.reuters.com/world/india/indias-rate-panel-holds-key-repo-rate-steady-expected-2024-04-05/",
+    category: "RBI / MPC",
+    pct: 0.00
+  },
+  {
+    date: "2025-04-15",
+    headline: "Instant View: India's retail inflation slows to over 5-year low in March",
+    source: "Reuters",
+    url: "https://www.reuters.com/world/india/view-indias-retail-inflation-slows-over-5-year-low-march-2025-04-15/",
+    category: "Macro / CPI",
+    pct: 2.19
+  }
+];
+
+// --- Utilities ---
+function fmtINR(n){
+  try{
+    return n.toLocaleString('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});
+  }catch(e){
+    return '₹' + Math.round(n).toLocaleString('en-IN');
+  }
+}
+function fmtPct(x){ return (x).toFixed(2) + '%'; }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+// --- State ---
+let order = [...ROUNDS];
+let idx = -1;
+let bank = START_BANK;
+let guesses = 0;
+let skips = 0;
+let returns = []; // in percentage terms (e.g., +1.23 or -0.80), for guesses only
+
+// --- Elements ---
+const elRoundIdx = document.getElementById('roundIdx');
+const elRoundTotal = document.getElementById('roundTotal');
+const elHeadline = document.getElementById('headline');
+const elChipCat = document.getElementById('chipCat');
+const elSrcWrap = document.getElementById('srcWrap');
+const elSrcLink = document.getElementById('srcLink');
+const elDateWrap = document.getElementById('dateWrap');
+const elDateTxt = document.getElementById('dateTxt');
+const elBtnUp = document.getElementById('btnUp');
+const elBtnDown = document.getElementById('btnDown');
+const elBtnSkip = document.getElementById('btnSkip');
+const elBtnStart = document.getElementById('btnStart');
+const elBtnShuffle = document.getElementById('btnShuffle');
+const elReveal = document.getElementById('revealBox');
+const elRevealText = document.getElementById('revealText');
+const elRoundRet = document.getElementById('roundRet');
+const elNewBal = document.getElementById('newBal');
+const elBtnNext = document.getElementById('btnNext');
+
+const elStartBank = document.getElementById('startBank');
+const elCurrBank = document.getElementById('currBank');
+const elCumPnl = document.getElementById('cumPnl');
+const elAvgRet = document.getElementById('avgRet');
+const elGuesses = document.getElementById('guesses');
+const elSkips = document.getElementById('skips');
+
+function updateScore(){
+  elStartBank.textContent = fmtINR(START_BANK);
+  elCurrBank.textContent = fmtINR(bank);
+  elCumPnl.textContent = fmtINR(bank - START_BANK);
+  const avg = returns.length ? (returns.reduce((a,b)=>a+b,0) / returns.length) : 0;
+  elAvgRet.textContent = fmtPct(avg);
+  elGuesses.textContent = String(guesses);
+  elSkips.textContent = String(skips);
+}
+
+function setButtonsEnabled(enabled){
+  [elBtnUp, elBtnDown, elBtnSkip].forEach(btn => { btn.disabled = !enabled; btn.style.opacity = enabled ? 1 : .6; });
+}
+
+function startGame(doShuffle=true){
+  order = [...ROUNDS];
+  if(doShuffle) shuffle(order);
+  idx = -1;
+  bank = START_BANK;
+  guesses = 0;
+  skips = 0;
+  returns = [];
+  elRoundTotal.textContent = String(order.length);
+  elRoundIdx.textContent = '0';
+  elHeadline.textContent = 'Ready. Press ▲UP or ▼DOWN when the headline appears.';
+  elChipCat.style.display='none';
+  elSrcWrap.style.display='none';
+  elDateWrap.style.display='none';
+  elReveal.classList.remove('show');
+  setButtonsEnabled(true);
+  nextRound();
+  updateScore();
+}
+
+function nextRound(){
+  idx += 1;
+  if(idx >= order.length){
+    setButtonsEnabled(false);
+    elHeadline.textContent = 'Done! You’ve played all headlines in this pack.';
+    elChipCat.style.display='none';
+    elSrcWrap.style.display='none';
+    elDateWrap.style.display='none';
+    elReveal.classList.remove('show');
+    return;
+  }
+  const r = order[idx];
+  elRoundIdx.textContent = String(idx+1);
+  elHeadline.textContent = r.headline;
+  elChipCat.textContent = r.category;
+  elChipCat.style.display='inline-flex';
+  elSrcWrap.style.display='inline-flex';
+  elSrcLink.href = r.url;
+  elSrcLink.textContent = r.source;
+  elDateWrap.style.display='inline-flex';
+  elDateTxt.textContent = r.date;
+  elReveal.classList.remove('show');
+  setButtonsEnabled(true);
+}
+
+function guess(dir){ // dir: +1 for UP, -1 for DOWN
+  const r = order[idx];
+  const m = r.pct; // percentage number, e.g., 2.05 = +2.05%
+  const correct = (m > 0 && dir > 0) || (m < 0 && dir < 0) || (m === 0);
+  const roundRetPct = dir * m; // signed percent based on the guess
+  const pnl = bank * (roundRetPct/100);
+  bank = Math.max(0, bank + pnl);
+  guesses += 1;
+  returns.push(roundRetPct);
+  showReveal(r, dir, m, roundRetPct, pnl, correct);
+  updateScore();
+}
+
+function skip(){
+  skips += 1;
+  const r = order[idx];
+  showReveal(r, 0, r.pct, 0, 0, null);
+  updateScore();
+}
+
+function showReveal(r, dir, m, roundRetPct, pnl, correct){
+  const arrow = dir > 0 ? 'UP' : dir < 0 ? 'DOWN' : 'SKIP';
+  const dirTxt = dir === 0 ? 'You skipped this one.' : `Your call: <strong>${arrow}</strong>.`;
+  const sign = m > 0 ? '+' : (m < 0 ? '−' : '');
+  const mAbs = Math.abs(m).toFixed(2);
+  const pnlClass = roundRetPct >= 0 ? 'pnl pos' : 'pnl neg';
+  const pnlSign = roundRetPct >= 0 ? '+' : '−';
+  const roundAbs = Math.abs(roundRetPct).toFixed(2);
+  let verdict = '';
+  if(dir !== 0){
+    verdict = correct ? ' Nice call.' : ' Tough one.';
+  }
+  elRevealText.innerHTML = `NIFTY closed <strong>${sign}${mAbs}%</strong> on <span class="mono">${r.date}</span>. ${dirTxt}<span class="${pnlClass}">${verdict}</span>`;
+  elRoundRet.textContent = (dir === 0) ? '0.00%' : `${pnlSign}${roundAbs}%`;
+  elRoundRet.className = "value mono " + (roundRetPct >= 0 ? 'pos' : 'neg');
+  elNewBal.textContent = fmtINR(bank);
+  elReveal.classList.add('show');
+  setButtonsEnabled(false);
+}
+
+document.getElementById('btnUp').addEventListener('click', ()=>guess(1));
+document.getElementById('btnDown').addEventListener('click', ()=>guess(-1));
+document.getElementById('btnSkip').addEventListener('click', skip);
+document.getElementById('btnStart').addEventListener('click', ()=>startGame(true));
+document.getElementById('btnShuffle').addEventListener('click', ()=>startGame(true));
+document.getElementById('btnNext').addEventListener('click', nextRound);
+
+// Keyboard shortcuts
+window.addEventListener('keydown', (e)=>{
+  if(e.key.toLowerCase() === 'u') guess(1);
+  if(e.key.toLowerCase() === 'd') guess(-1);
+  if(e.key.toLowerCase() === 's') skip();
+  if(e.key.toLowerCase() === 'n') nextRound();
+});
+
+// Boot
+elRoundTotal.textContent = String(ROUNDS.length);
+updateScore();
+</script>
+</body>
+</html>
