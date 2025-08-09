@@ -1,167 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crystal Ball — Play</title>
 <meta name="description" content="Monthly headline → one wealth decision. Right/Wrong, monthly return, annualised return, with an end-path summary.">
-<style>
-  :root{
-    --ink:#0b1b2b; --ink-2:#132a40; --paper:#f7f6f3; --line:#d9d7d2; --muted:#6a7380;
-    --up:#1f7a5e; --down:#b02a2a; --card:#ffffff; --shadow:0 14px 34px rgba(9,18,28,0.12);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;color:var(--ink);font-family:ui-serif,Georgia,"Times New Roman",Times,serif;background:
-    radial-gradient(1200px 900px at 10% -20%,#fbfaf7,var(--paper)60%,#f0efe9 100%),
-    linear-gradient(180deg,#fbfbfb,#f0efe9 80%);}
-  header{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,0));border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(8px)}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-  .title{margin:0;font-size:18px;color:var(--ink-2)}
-  .layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;padding:18px 0}@media(max-width:980px){.layout{grid-template-columns:1fr}}
-  .card{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow)}
-  .in{padding:18px}
-  .article{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
-  .mast{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fafafa,#f4f6f8)}
-  .paper{font-weight:900;letter-spacing:.5px}
-  .dateline{font-size:12px;color:var(--muted)}
-  .h{font-size:24px;line-height:1.25;margin:14px;font-weight:800}
-  .deck{margin:0 14px 8px;color:#4a5563}
-  .by{margin:0 14px 14px;color:#6b7280;font-size:12px}
-  .topbar{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px}
-  .mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-  .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-  .btn{appearance:none;border:1px solid var(--line);border-radius:12px;cursor:pointer;padding:12px 16px;font-weight:900;background:#f6f9ff}
-  .btn.up{background:linear-gradient(180deg,#e6f4ee,#d8efe6);border-color:#cde6db}
-  .btn.down{background:linear-gradient(180deg,#fee9ea,#ffdede);border-color:#f1c1c1}
-  .btn.skip{background:linear-gradient(180deg,#fdf8e8,#fff2c8)}
-  .toast{position:fixed;left:50%;top:10px;transform:translateX(-50%);padding:10px 14px;border-radius:12px;background:#0b1b2b;color:#fff;opacity:0;pointer-events:none;transition:opacity .15s ease}
-  .toast.show{opacity:.98}
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){.grid-2{grid-template-columns:1fr}}
-  .kpi{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}.lab{color:var(--muted);font-size:12px}.val{font-weight:900}
-  footer{padding:18px 0;color:#6a7380;font-size:12px;border-top:1px solid var(--line);text-align:center}
-</style>
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-<header><div class="wrap nav"><h1 class="title">Crystal Ball — Play</h1><a href="index.html">← Back</a></div></header>
+<header><div class="wrap nav"><div class="brand"><img class="logo" src="assets/logo.svg" alt=""><h1 class="title">Crystal Ball — Play</h1></div><a href="index.html" class="cta">← Back</a></div></header>
 
-<main class="wrap layout">
+<main class="wrap hero" style="padding-top:18px">
+  <!-- Game -->
   <div class="card"><div class="in">
     <div class="topbar mono"><div>Month <span id="i">0</span>/<span id="n">0</span></div><div>Bank: <span id="bank">₹0</span></div></div>
     <div class="article" aria-label="Article">
-      <div class="mast"><div class="paper">Daily Ledger</div><div class="dateline"><span id="date">—</span></div></div>
-      <h2 id="headline" class="h">Press “Start” to begin.</h2>
+      <div class="mast"><div class="paper">Daily Ledger</div><div class="date"><span id="date">—</span></div></div>
+      <h2 id="headline" class="h">Loading pack…</h2>
       <p id="deck" class="deck"></p>
       <p id="by" class="by"></p>
     </div>
     <div class="buttons">
-      <button class="btn up" id="up">▲ UP</button>
-      <button class="btn down" id="down">▼ DOWN</button>
-      <button class="btn skip" id="skip">Skip</button>
-      <button class="btn" id="start">Start</button>
+      <button class="btn up"   id="up" disabled>▲ UP</button>
+      <button class="btn down" id="down" disabled>▼ DOWN</button>
+      <button class="btn skip" id="skip" disabled>Skip</button>
+      <button class="btn"      id="start" disabled>Start</button>
     </div>
-    <p class="mono" style="margin-top:8px;color:#6a7380">Monthly cadence. We settle using the NIFTY 50 month‑end close vs prior month‑end close. Choosing auto‑advances.</p>
+    <p class="mono note" style="margin-top:8px">Monthly cadence. We settle using the NIFTY 50 close‑to‑close for that item’s date. Choosing auto‑advances.</p>
   </div></div>
 
+  <!-- Scoreboard -->
   <div class="card"><div class="in">
-    <div class="grid-2">
-      <div class="kpi"><div class="lab">Starting bank</div><div id="sb" class="val mono">₹0</div></div>
-      <div class="kpi"><div class="lab">Current bank</div><div id="cb" class="val mono">₹0</div></div>
-      <div class="kpi"><div class="lab">Right / Wrong</div><div id="rw" class="val mono">0 / 0</div></div>
-      <div class="kpi"><div class="lab">Skips</div><div id="sk" class="val mono">0</div></div>
-      <div class="kpi"><div class="lab">Avg monthly return</div><div id="am" class="val mono">0.00%</div></div>
-      <div class="kpi"><div class="lab">Annualized (CAGR)</div><div id="cagr" class="val mono">0.00%</div></div>
+    <div class="grid-3" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="k"><div class="lab note">Starting bank</div><div id="sb" class="val mono">₹0</div></div>
+      <div class="k"><div class="lab note">Current bank</div><div id="cb" class="val mono">₹0</div></div>
+      <div class="k"><div class="lab note">Right / Wrong</div><div id="rw" class="val mono">0 / 0</div></div>
+      <div class="k"><div class="lab note">Skips</div><div id="sk" class="val mono">0</div></div>
+      <div class="k"><div class="lab note">Avg monthly return</div><div id="am" class="val mono">0.00%</div></div>
+      <div class="k"><div class="lab note">Annualized (CAGR)</div><div id="cagr" class="val mono">0.00%</div></div>
     </div>
   </div></div>
 </main>
 
 <div id="toast" class="toast mono">—</div>
-<footer><div class="wrap"><p>Educational prototype. Headlines use real‑style sources (e.g., Reuters/official). In production, we wire verified links + actual NIFTY closes for each item.</p></div></footer>
+<footer><div class="wrap"><p class="note">Educational prototype. Headlines use real‑style sources (e.g., Reuters/official). In production, verify each item’s return% from NSE/Yahoo.</p></div></footer>
 
-<script>
-// Utilities
-function INR(n){try{return n.toLocaleString('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0});}catch(e){return '₹'+Math.round(n).toLocaleString('en-IN');}}
-function pct(x){return (x).toFixed(2)+'%';}
-function mean(a){return a.length? a.reduce((m,x)=>m+x,0)/a.length : 0;}
-function cagr(start,end,months){if(months<=0)return 0;return Math.pow(end/start,12/months)-1;}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1100);}
-function humanReason(r){
-  if(r.expect==='up'&&r.pct<0)return 'Felt bullish, still fell — positioning and profit‑taking can overpower good news.';
-  if(r.expect==='down'&&r.pct>0)return 'Looked scary, finished green — markets had already priced the fear in.';
-  if(Math.abs(r.pct)<0.2)return 'Headline noise, muted index — breadth rotated under the hood.';
-  return 'It’s difficult — headlines ≠ outcomes, flows matter.';
-}
-
-// State
-const START=1000000;
-let i=-1, bank=START, wins=0, losses=0, skips=0, monthsPlayed=0, monthRets=[];
-
-// DOM
-const eI=document.getElementById('i'), eN=document.getElementById('n');
-const eBANK=document.getElementById('bank'), eDATE=document.getElementById('date');
-const eH=document.getElementById('headline'), eD=document.getElementById('deck'), eBY=document.getElementById('by');
-const eSB=document.getElementById('sb'), eCB=document.getElementById('cb'), eRW=document.getElementById('rw'), eSKS=document.getElementById('sk'), eAM=document.getElementById('am'), eCAGR=document.getElementById('cagr');
-const eUP=document.getElementById('up'), eDN=document.getElementById('down'), eSK=document.getElementById('skip'), eST=document.getElementById('start');
-
-// Data
-let PACK=[];
-fetch('data/questions.json').then(r=>r.json()).then(init);
-
-function init(rows){
-  PACK=rows;
-  eN.textContent=String(PACK.length);
-  [eSB,eCB,eBANK].forEach(el=>el.textContent=INR(START));
-  updateScore();
-}
-
-function updateScore(){
-  eCB.textContent=INR(bank); eBANK.textContent=INR(bank);
-  eRW.textContent=`${wins} / ${losses}`; eSKS.textContent=String(skips);
-  const avg=monthRets.length? mean(monthRets):0; eAM.textContent=pct(avg);
-  const k=monthsPlayed? cagr(START,bank,monthsPlayed)*100 : 0; eCAGR.textContent=pct(k);
-}
-function enableButtons(b){[eUP,eDN,eSK].forEach(btn=>{btn.disabled=!b;btn.style.opacity=b?1:0.6;});}
-
-function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
-
-function start(){
-  shuffle(PACK); i=-1; bank=START; wins=0; losses=0; skips=0; monthsPlayed=0; monthRets=[];
-  eI.textContent='0'; eH.textContent='Ready. Press UP or DOWN when the headline appears.'; eD.textContent='Monthly headline, as published.'; eBY.textContent='';
-  updateScore(); enableButtons(true); next();
-}
-function next(){
-  i+=1; if(i>=PACK.length){ return finish(); }
-  const r=PACK[i]; eI.textContent=String(i+1);
-  eDATE.textContent=`${r.month||''} • ${r.date}`; eH.textContent=r.headline; eD.textContent=r.deck||'';
-  let linkPart=r.url?` • <a href=\"${r.url}\" target=\"_blank\" rel=\"noopener\">link</a>`:''; eBY.innerHTML=`${r.source||'Source'}${linkPart}`;
-}
-function decide(dir){
-  const r=PACK[i], m=Number(r.pct);
-  if(dir===0){skips++; toast('Skipped'); setTimeout(next,500); updateScore(); return;}
-  const correct=(m>0&&dir>0)||(m<0&&dir<0)||(m===0);
-  correct?wins++:losses++;
-  const rr=dir*m; const pnl=bank*(rr/100); bank=Math.max(0,bank+pnl);
-  monthsPlayed++; monthRets.push(m);
-  toast(`${correct?'Right':'Wrong'} • ${rr>=0?'+':'−'}${Math.abs(rr).toFixed(2)}% — ${humanReason(r)}`);
-  updateScore(); setTimeout(next,900);
-}
-function finish(){
-  enableButtons(false);
-  const accPct=(wins+losses)>0?Math.round((wins/(wins+losses))*100):0;
-  const k=monthsPlayed? cagr(START,bank,monthsPlayed)*100 : 0;
-  const leadTrail=k>=0?`you are ${k.toFixed(2)}% ahead`:`you are ${Math.abs(k).toFixed(2)}% behind`;
-  let advisory='';
-  if(accPct>=65&&k>5){advisory='Nice run. Even so, anchoring with high‑quality fixed income can stabilise outcomes when headlines mislead.';}
-  else if(accPct>=50&&k>=0){advisory='Decent reads. A core fixed‑income allocation helps smooth the journey—and protects gains when markets zigzag.';}
-  else{advisory='Tough tape. This is why a reliable fixed‑income base matters—so your plan isn’t hostage to monthly surprises.';}
-  alert(`You got ${wins} out of ${wins+losses} right, which means ${leadTrail}. ${advisory}`);
-}
-
-// Bind events
-eUP.onclick=()=>decide(+1);
-eDN.onclick=()=>decide(-1);
-eSK.onclick=()=>decide(0);
-eST.onclick=start;
-window.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='u')decide(+1);if(k==='d')decide(-1);if(k==='s')decide(0);});
-</script>
+<script src="scripts/play.js"></script>
 </body>
 </html>
