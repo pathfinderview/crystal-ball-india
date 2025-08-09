@@ -1,61 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crystal Ball — India</title>
 <meta name="description" content="Read a monthly headline. Make one clean wealth decision. See how compounding responds.">
-<meta name="theme-color" content="#0b1b2b">
-<style>
-  :root {
-    --ink:#0b1b2b; --ink-2:#132a40; --paper:#f7f6f3; --line:#d9d7d2; --muted:#6a7380;
-    --accent:#276fca; --accent-2:#1f7a5e; --card:#ffffff; --shadow:0 14px 34px rgba(9,18,28,0.12);
-  }
-  *{box-sizing:border-box} html,body{height:100%}
-  body{margin:0;color:var(--ink);font-family:ui-serif,Georgia,"Times New Roman",Times,serif;background:
-    radial-gradient(1200px 900px at 10% -20%,#fbfaf7,var(--paper)60%,#f0efe9 100%),
-    linear-gradient(180deg,#fbfbfb,#f0efe9 80%);}
-  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-  .wrap{max-width:1160px;margin:0 auto;padding:0 18px}
-  header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,0));
-    border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(8px)}
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:36px;height:36px}
-  .title{margin:0;font-size:18px;letter-spacing:.2px;color:var(--ink-2)}
-  .cta{display:inline-flex;gap:10px;align-items:center;padding:11px 16px;border:1px solid var(--line);border-radius:12px;
-    background:linear-gradient(180deg,#f3f7ff,#e8f0ff);font-weight:900;letter-spacing:.3px;color:var(--ink);box-shadow:0 10px 24px rgba(16,26,36,.08)}
-  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding:32px 0}@media(max-width:980px){.hero{grid-template-columns:1fr}}
-  .hero h1{font-size:44px;line-height:1.12;margin:0 0 10px 0}
-  .hero p{margin:0;color:var(--muted)}
-  .actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
-  .btn{appearance:none;border:1px solid var(--line);border-radius:12px;padding:12px 18px;font-weight:900;letter-spacing:.3px;background:#f6f9ff;box-shadow:0 6px 16px rgba(16,26,36,.06)}
-  .btn.primary{background:linear-gradient(180deg,#e6f4ee,#d8efe6);border-color:#cde6db}
-  .card{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow)}
-  .in{padding:18px}
-  .article{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
-  .mast{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fafafa,#f4f6f8)}
-  .paper{font-weight:900;letter-spacing:.5px} .date{font-size:12px;color:var(--muted)}
-  .h{font-size:26px;line-height:1.22;margin:14px;font-weight:800}
-  .deck{margin:0 14px 14px;color:#4a5563} .by{margin:0 14px 14px;color:#6b7280;font-size:12px}
-  section{padding:28px 0;border-top:1px solid var(--line)} h2{margin:0 0 8px 0;font-size:22px}
-  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}@media(max-width:980px){.grid-3{grid-template-columns:1fr}}
-  .k{padding:16px;border:1px solid var(--line);border-radius:12px;background:#fff} .k .big{font-size:18px;font-weight:900}
-  footer{padding:22px 0;color:#6a7380;font-size:12px;border-top:1px solid var(--line);text-align:center}
-</style>
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 <header>
   <div class="wrap nav">
     <div class="brand">
-      <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
-        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#276fca"/><stop offset="1" stop-color="#1f7a5e"/></linearGradient></defs>
-        <rect rx="12" ry="12" x="2" y="2" width="60" height="60" fill="url(#g)"/><circle cx="32" cy="26" r="12" fill="#fff" opacity="0.95"/>
-        <path d="M16 44c4-6 12-10 16-10s12 4 16 10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
-      </svg>
+      <img class="logo" src="assets/logo.svg" alt="" />
       <h1 class="title">Crystal Ball — India</h1>
     </div>
-    <a class="cta" href="play.html">Play now →</a>
+    <nav class="actions">
+      <a class="cta" href="play.html">Play now →</a>
+      <a class="cta" href="news.html">Volatility News</a>
+      <a class="cta" href="fixed-income.html">Hall of Calm</a>
+    </nav>
   </div>
 </header>
 
@@ -68,7 +30,7 @@
         <a class="btn primary" href="play.html">Play now</a>
         <a class="btn" href="#how">How it works</a>
       </div>
-      <p style="margin-top:10px;color:var(--muted)">No ads. No fees. Transparent math. Educational only.</p>
+      <p class="note" style="margin-top:10px">No ads. No fees. Transparent math. Educational only.</p>
     </div>
     <div class="card"><div class="in">
       <div class="article" aria-label="Article window">
@@ -83,13 +45,67 @@
   <section id="how">
     <h2>How it works</h2>
     <div class="grid-3">
-      <div class="k"><div class="big">1) See the month’s headline</div><p class="muted">Unmasked, as published (Reuters/official), with timestamp & link.</p></div>
-      <div class="k"><div class="big">2) Make one decision</div><p class="muted">Pick <strong>UP</strong> or <strong>DOWN</strong>. We mix in “gotcha” months—where the obvious read misleads.</p></div>
-      <div class="k"><div class="big">3) Learn via compounding</div><p class="muted">We track Right/Wrong, monthly return, and annualised return (CAGR) as you progress.</p></div>
+      <div class="k"><div class="big">1) See the month’s headline</div><p class="note">Unmasked, as published (Reuters/official), with timestamp & link.</p></div>
+      <div class="k"><div class="big">2) Make one decision</div><p class="note">Pick <strong>UP</strong> or <strong>DOWN</strong>. We deliberately mix in “gotcha” months where the obvious read misleads.</p></div>
+      <div class="k"><div class="big">3) Learn via compounding</div><p class="note">We track Right/Wrong, monthly return, and annualised return (CAGR) as you progress.</p></div>
     </div>
+  </section>
+
+  <section id="lead">
+    <h2>Want a call from our expert?</h2>
+    <p class="note">Leave your number and we’ll call you back. (This demo stores leads locally and opens your email—replace the email later.)</p>
+    <div class="card"><div class="in">
+      <form class="form" id="leadForm">
+        <div class="row">
+          <label for="name">Your name</label>
+          <input class="input" id="name" name="name" required placeholder="Full name">
+        </div>
+        <div class="row">
+          <label for="phone">Phone (India)</label>
+          <input class="input" id="phone" name="phone" required placeholder="+91 98765 43210" pattern="^\\+?91?[\\s-]?[6-9]\\d{9}$" title="Indian mobile number starting 6–9 (optionally with +91)">
+        </div>
+        <div class="row">
+          <label for="notes">Notes (optional)</label>
+          <textarea class="input" id="notes" name="notes" rows="3" placeholder="Best time to call, questions, etc."></textarea>
+        </div>
+        <div class="row" style="display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn primary" type="submit">Request a call</button>
+          <button class="btn" type="button" id="downloadLeads">Download leads.csv</button>
+        </div>
+        <div class="success" id="leadOk">Thanks! We’ll reach out soon.</div>
+      </form>
+      <p class="note">To wire a real backend later, swap the `submitLead()` inlined script to POST to your CRM (or Formspree / Google Form).</p>
+    </div></div>
   </section>
 </main>
 
 <footer><div class="wrap"><p>&copy; 2025 • Crystal Ball — India • Educational prototype</p></div></footer>
+
+<script>
+const leadsKey='cb_in_leads';
+function saveLead(row){const all=JSON.parse(localStorage.getItem(leadsKey)||'[]');all.push(row);localStorage.setItem(leadsKey,JSON.stringify(all));}
+function csvRows(){const all=JSON.parse(localStorage.getItem(leadsKey)||'[]');const head=['timestamp','name','phone','notes'];const body=all.map(o=>[o.t,o.name,o.phone,(o.notes||'').replace(/\\n/g,' ')]);return [head,...body];}
+function downloadCSV(){
+  const rows=csvRows().map(r=>r.map(x=>`"${(x||'').toString().replace(/"/g,'""')}"`).join(',')).join('\\n');
+  const blob=new Blob([rows],{type:'text/csv'}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='leads.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+document.getElementById('downloadLeads').onclick=downloadCSV;
+
+document.getElementById('leadForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const notes=document.getElementById('notes').value.trim();
+  if(!name||!phone) return;
+  const rec={t:new Date().toISOString(),name,phone,notes};
+  saveLead(rec);
+  // fallback: open email draft (replace with your team email)
+  const mail=`mailto:sales@yourfirm.com?subject=Lead:%20${encodeURIComponent(name)}&body=${encodeURIComponent('Phone: '+phone+'\\nNotes: '+notes)}`;
+  window.location.href=mail;
+  document.getElementById('leadOk').style.display='block';
+  e.target.reset();
+});
+</script>
 </body>
 </html>
