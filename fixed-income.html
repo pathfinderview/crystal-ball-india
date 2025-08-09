@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hall of Calm — Fixed Income</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><img class="logo" src="assets/logo.svg" alt=""><h1 class="title">Hall of Calm</h1></div>
+    <nav class="actions">
+      <a class="cta" href="index.html">Home</a>
+      <a class="cta" href="play.html">Play</a>
+      <a class="cta" href="news.html">Volatility News</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>Why fixed income earns a seat at the table</h2>
+    <div class="grid-3">
+      <div class="k"><div class="big">Stability compounding</div><p class="note">Debt instruments reduce drawdowns—helping long‑term compounding survive bad months.</p></div>
+      <div class="k"><div class="big">Known cashflows</div><p class="note">FDs and bonds offer predictable income; duration and credit quality can be tuned to your goals.</p></div>
+      <div class="k"><div class="big">Behavioural ballast</div><p class="note">A calm base cuts the urge to “chase” headlines—protecting returns from your own worst impulses.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pick your calm</h2>
+    <div class="grid-3">
+      <div class="k">
+        <div class="big">Bank FDs</div>
+        <p class="note">Simple, insured up to limits, rate‑locked. Ladder maturities to reduce reinvestment risk.</p>
+      </div>
+      <div class="k">
+        <div class="big">High‑quality Bonds / G‑Secs</div>
+        <p class="note">Credit‑safe and liquid. Match duration to horizon; use T‑Bills/short G‑Secs for parking, longer G‑Secs for stability with duration risk.</p>
+      </div>
+      <div class="k">
+        <div class="big">Debt Mutual Funds</div>
+        <p class="note">Access diversified portfolios (liquid/ultra‑short/short‑term). Check credit quality, duration, and exit loads.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <h2>Want a plan that balances growth and calm?</h2>
+    <p class="note">Leave your number—we’ll help map equity ambition to the right fixed‑income ballast.</p>
+    <div class="card"><div class="in">
+      <form class="form" id="lead2">
+        <div class="row"><label for="n2">Your name</label><input id="n2" class="input" required></div>
+        <div class="row"><label for="p2">Phone (India)</label><input id="p2" class="input" required placeholder="+91 9XXXXXXXXX" pattern="^\\+?91?[\\s-]?[6-9]\\d{9}$"></div>
+        <div class="row"><label for="q2">Goal / horizon</label><textarea id="q2" class="input" rows="3" placeholder="e.g., child’s education 8 yrs, home down‑payment 3 yrs"></textarea></div>
+        <div class="actions"><button class="btn primary" type="submit">Request a call</button></div>
+        <div class="success" id="ok2">Thanks! We’ll call you soon.</div>
+      </form>
+    </div></div>
+  </section>
+</main>
+
+<footer><div class="wrap"><p class="note">This is educational material, not investment advice.</p></div></footer>
+
+<script>
+document.getElementById('lead2').addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const n=document.getElementById('n2').value.trim();
+  const p=document.getElementById('p2').value.trim();
+  const q=document.getElementById('q2').value.trim();
+  const mail=`mailto:sales@yourfirm.com?subject=Lead:%20${encodeURIComponent(n)}&body=${encodeURIComponent('Phone: '+p+'\\nGoal: '+q)}`;
+  window.location.href=mail;
+  document.getElementById('ok2').style.display='block';
+  e.target.reset();
+});
+</script>
+</body>
+</html>
