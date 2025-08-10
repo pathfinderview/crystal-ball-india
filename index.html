@@ -1,111 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Crystal Ball — India</title>
-<meta name="description" content="Read a monthly headline. Make one clean wealth decision. See how compounding responds.">
-<link rel="stylesheet" href="assets/styles.css">
+<meta name="description" content="Read a real headline as it appeared, make one clean wealth decision, and see how compounding responds." />
+<meta name="theme-color" content="#0e2a1d" />
+<style>
+  :root{
+    /* palette: trusted, calm */
+    --bg-ivory:#f7f5ef;
+    --bg-grad1:#f3f1ea;
+    --bg-grad2:#ece8dc;
+    --ink:#1a1f21;
+    --ink-soft:#4c535a;
+    --accent:#1f6a4f;        /* deep green for headings */
+    --rule:#e1d9c8;          /* hairline */
+    --panel:#ffffff;
+    --panel-shadow:0 14px 36px rgba(10,20,16,.12);
+    --accent-bar:#e96f51;    /* tasteful coral edge like Elm */
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--ink);
+    font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+    line-height:1.6;
+    background:
+      radial-gradient(1600px 900px at 10% -10%, var(--bg-grad1), var(--bg-ivory) 60%, var(--bg-grad2) 100%),
+      linear-gradient(180deg, #fff, var(--bg-ivory) 80%);
+  }
+
+  /* top nav */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0));
+    border-bottom:1px solid var(--rule);
+    backdrop-filter:saturate(140%) blur(8px);
+  }
+  .nav{max-width:1160px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between}
+  .brand{display:flex; gap:12px; align-items:center}
+  .logo{
+    width:36px; height:36px; display:block;
+    background: conic-gradient(from 210deg, #1f6a4f, #2a7fb7, #1f6a4f);
+    border-radius:8px;
+    position:relative;
+  }
+  .logo::after{
+    content:""; position:absolute; inset:8px 9px 10px 9px; border-radius:50%;
+    background:#fff; opacity:.9;
+  }
+  .title{margin:0; font-size:18px; letter-spacing:.2px}
+
+  /* page container */
+  .wrap{max-width:920px; margin:48px auto; padding:0 20px}
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    box-shadow:var(--panel-shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .panel::after{ /* slender accent bar at right, like Elm */
+    content:""; position:absolute; top:0; right:0; width:8px; height:100%; background:var(--accent-bar);
+  }
+  .content{padding:40px 48px}
+  @media (max-width:640px){ .content{padding:28px 22px} }
+
+  /* typography */
+  h1{
+    margin:0 0 18px 0;
+    font-size:38px; line-height:1.18;
+    color:var(--accent);
+    text-align:center;
+    letter-spacing:.2px;
+  }
+  p{color:var(--ink-soft); margin:0 0 12px 0}
+  .lead{font-size:18px; color:#2a3136; margin:0 auto 18px auto; max-width:68ch; text-align:center}
+  hr{border:none; border-top:1px solid var(--rule); margin:22px 0}
+  ol{padding-left:20px; margin:0}
+  li{margin:8px 0}
+
+  /* callouts / notes */
+  .note{font-size:14px; color:#5c646b}
+
+  /* footer */
+  footer{max-width:1160px; margin:24px auto 48px auto; padding:0 20px; color:#6d736d; font-size:12px; text-align:center}
+
+  /* primary CTA row under the intro */
+  .cta-row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:18px 0 6px 0}
+  .btn{
+    appearance:none; cursor:pointer;
+    border:1px solid var(--rule); border-radius:12px;
+    padding:12px 18px; font-weight:800; letter-spacing:.3px;
+    background:linear-gradient(180deg,#eef6f2,#e4efe9); color:#0f3b2d;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:focus{outline:2px solid #2a7fb7; outline-offset:2px}
+</style>
 </head>
 <body>
+
 <header>
-  <div class="wrap nav">
+  <div class="nav">
     <div class="brand">
-      <img class="logo" src="assets/logo.svg" alt="" />
+      <span class="logo" aria-hidden="true"></span>
       <h1 class="title">Crystal Ball — India</h1>
     </div>
-    <nav class="actions">
-      <a class="cta" href="play.html">Play now →</a>
-      <a class="cta" href="news.html">Volatility News</a>
-      <a class="cta" href="fixed-income.html">Hall of Calm</a>
+    <nav>
+      <a class="btn" href="play.html">Play Now →</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <div class="hero">
-    <div>
-      <h1>One clean wealth decision from a monthly headline.</h1>
-      <p>Read the news as you actually see it. Make a single call for that month: will your capital grow or shrink by month‑end close? We show how compounding responds across the year.</p>
-      <div class="actions">
-        <a class="btn primary" href="play.html">Play now</a>
-        <a class="btn" href="#how">How it works</a>
-      </div>
-      <p class="note" style="margin-top:10px">No ads. No fees. Transparent math. Educational only.</p>
-    </div>
-    <div class="card"><div class="in">
-      <div class="article" aria-label="Article window">
-        <div class="mast"><div class="paper">Daily Ledger</div><div class="date">Mumbai • 9:15 IST</div></div>
-        <h3 class="h">RBI holds rates; stance unchanged as inflation risks watched</h3>
-        <p class="deck">Markets look for signals on liquidity and growth. Analysts expect calm, but surprises happen.</p>
-        <p class="by">Examples pull from Reuters / official releases (production build uses real links).</p>
-      </div>
-    </div></div>
-  </div>
+  <article class="panel" aria-label="Welcome">
+    <div class="content">
+      <h1>Welcome to the Crystal Ball — India</h1>
+      <p class="lead">
+        This is a simple, serious exercise in decision‑making. You’ll read real, time‑stamped headlines as they appeared and make one clean wealth call for that date. We then settle your result against the NIFTY&nbsp;50 close for that day (vs the prior close) and let compounding tell the story.
+      </p>
 
-  <section id="how">
-    <h2>How it works</h2>
-    <div class="grid-3">
-      <div class="k"><div class="big">1) See the month’s headline</div><p class="note">Unmasked, as published (Reuters/official), with timestamp & link.</p></div>
-      <div class="k"><div class="big">2) Make one decision</div><p class="note">Pick <strong>UP</strong> or <strong>DOWN</strong>. We deliberately mix in “gotcha” months where the obvious read misleads.</p></div>
-      <div class="k"><div class="big">3) Learn via compounding</div><p class="note">We track Right/Wrong, monthly return, and annualised return (CAGR) as you progress.</p></div>
-    </div>
-  </section>
+      <hr />
 
-  <section id="lead">
-    <h2>Want a call from our expert?</h2>
-    <p class="note">Leave your number and we’ll call you back. (This demo stores leads locally and opens your email—replace the email later.)</p>
-    <div class="card"><div class="in">
-      <form class="form" id="leadForm">
-        <div class="row">
-          <label for="name">Your name</label>
-          <input class="input" id="name" name="name" required placeholder="Full name">
-        </div>
-        <div class="row">
-          <label for="phone">Phone (India)</label>
-          <input class="input" id="phone" name="phone" required placeholder="+91 98765 43210" pattern="^\\+?91?[\\s-]?[6-9]\\d{9}$" title="Indian mobile number starting 6–9 (optionally with +91)">
-        </div>
-        <div class="row">
-          <label for="notes">Notes (optional)</label>
-          <textarea class="input" id="notes" name="notes" rows="3" placeholder="Best time to call, questions, etc."></textarea>
-        </div>
-        <div class="row" style="display:flex; gap:10px; flex-wrap:wrap">
-          <button class="btn primary" type="submit">Request a call</button>
-          <button class="btn" type="button" id="downloadLeads">Download leads.csv</button>
-        </div>
-        <div class="success" id="leadOk">Thanks! We’ll reach out soon.</div>
-      </form>
-      <p class="note">To wire a real backend later, swap the `submitLead()` inlined script to POST to your CRM (or Formspree / Google Form).</p>
-    </div></div>
-  </section>
+      <p>
+        You will be trading the <strong>NIFTY&nbsp;50 index</strong> with a fixed, unlevered exposure. Your choice each round is simply
+        <em>UP</em> or <em>DOWN</em> (or <em>Skip</em>). Headlines are shown unmasked—just like you would actually read them—covering RBI decisions, IMD monsoon updates, budget cues, policy, and global macro.
+      </p>
+
+      <p><strong>Your starting wealth is ₹1,000,000.</strong></p>
+
+      <p class="note">We focus on learning through compounding, not clever tricks. The set includes months where the “obvious” read would have been wrong.</p>
+
+      <h2 style="margin-top:18px">The ground rules</h2>
+      <ol>
+        <li><strong>Dates are sampled</strong> from the last 13 months across RBI/IMD/policy/global mixes. No cherry‑picking to deceive.</li>
+        <li><strong>One clean decision</strong> per item: UP / DOWN / Skip. No leverage, no transaction costs.</li>
+        <li><strong>Settlement</strong> uses NIFTY&nbsp;50 close‑to‑close for that date. Your bank moves by that day’s % in the direction you chose.</li>
+        <li><strong>Metrics</strong> we show as you play: Right/Wrong, average monthly return, and an annualised return (CAGR proxy based on decisions taken).</li>
+        <li><strong>Transparency</strong>: headlines carry a source and link (e.g., Reuters). We never mask directional words.</li>
+        <li><strong>Educational</strong> only. No advice, no ads, no fees.</li>
+      </ol>
+
+      <div class="cta-row">
+        <a class="btn" href="play.html">Play Now →</a>
+      </div>
+
+      <p class="note" style="text-align:center">Tip: You can skip any item. The goal isn’t to be heroic, it’s to understand what the news really tells you.</p>
+    </div>
+  </article>
 </main>
 
-<footer><div class="wrap"><p>&copy; 2025 • Crystal Ball — India • Educational prototype</p></div></footer>
+<footer>
+  <p>&copy; 2025 • Crystal Ball — India • Educational prototype • Headlines credited to original publishers</p>
+</footer>
 
-<script>
-const leadsKey='cb_in_leads';
-function saveLead(row){const all=JSON.parse(localStorage.getItem(leadsKey)||'[]');all.push(row);localStorage.setItem(leadsKey,JSON.stringify(all));}
-function csvRows(){const all=JSON.parse(localStorage.getItem(leadsKey)||'[]');const head=['timestamp','name','phone','notes'];const body=all.map(o=>[o.t,o.name,o.phone,(o.notes||'').replace(/\\n/g,' ')]);return [head,...body];}
-function downloadCSV(){
-  const rows=csvRows().map(r=>r.map(x=>`"${(x||'').toString().replace(/"/g,'""')}"`).join(',')).join('\\n');
-  const blob=new Blob([rows],{type:'text/csv'}); const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download='leads.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-}
-document.getElementById('downloadLeads').onclick=downloadCSV;
-
-document.getElementById('leadForm').addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const name=document.getElementById('name').value.trim();
-  const phone=document.getElementById('phone').value.trim();
-  const notes=document.getElementById('notes').value.trim();
-  if(!name||!phone) return;
-  const rec={t:new Date().toISOString(),name,phone,notes};
-  saveLead(rec);
-  // fallback: open email draft (replace with your team email)
-  const mail=`mailto:sales@yourfirm.com?subject=Lead:%20${encodeURIComponent(name)}&body=${encodeURIComponent('Phone: '+phone+'\\nNotes: '+notes)}`;
-  window.location.href=mail;
-  document.getElementById('leadOk').style.display='block';
-  e.target.reset();
-});
-</script>
 </body>
 </html>
