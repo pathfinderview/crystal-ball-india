@@ -3,15 +3,11 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crystal Ball — Play</title>
-<meta name="description" content="Read the monthly Morning Brief and make one clean wealth decision.">
+<meta name="description" content="Read the Morning Brief and make one clean wealth decision.">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  /* small additions specific to Play */
-  .verdict{
-    margin:10px 14px 12px; padding:10px 12px; border-radius:10px;
-    border:1px solid var(--line); background:#f7faf8; color:#0f3b2d; font-weight:700;
-  }
-  .verdict.wrong{background:#fff5f5; color:#6b1a1a}
+  .verdict{margin:10px 14px 12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#f7faf8;color:#0f3b2d;font-weight:700}
+  .verdict.wrong{background:#fff5f5;color:#6b1a1a}
   .hidden{display:none}
 </style>
 </head>
@@ -24,7 +20,6 @@
 </header>
 
 <main class="wrap hero" style="padding-top:18px">
-  <!-- Game -->
   <div class="card"><div class="in">
     <div class="topbar mono"><div>Question <span id="i">0</span>/<span id="n">0</span></div></div>
 
@@ -44,12 +39,9 @@
       <button class="btn"      id="next"  style="display:none">Next →</button>
     </div>
 
-    <p class="mono note" style="margin-top:8px">
-      We settle using the NIFTY 50 close‑to‑close for that item’s date. Choose calmly.
-    </p>
+    <p class="mono note" style="margin-top:8px">We settle using NIFTY 50 close‑to‑close for that date. Choose calmly.</p>
   </div></div>
 
-  <!-- Scoreboard (simple) -->
   <div class="card"><div class="in">
     <div class="grid-3">
       <div class="k"><div class="lab note">Right</div><div id="rCnt" class="val mono">0</div></div>
@@ -61,6 +53,7 @@
 
 <footer><div class="wrap"><p class="note">Educational prototype. Headlines credit original publishers (e.g., Reuters).</p></div></footer>
 
-<script src="scripts/play.js"></script>
+<!-- IMPORTANT: cache-bust the JS -->
+<script src="scripts/play.js?v=20250810"></script>
 </body>
 </html>
