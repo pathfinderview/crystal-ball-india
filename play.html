@@ -3,46 +3,63 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crystal Ball — Play</title>
-<meta name="description" content="Monthly headline → one wealth decision. Right/Wrong, monthly return, annualised return, with an end-path summary.">
+<meta name="description" content="Read the monthly Morning Brief and make one clean wealth decision.">
 <link rel="stylesheet" href="assets/styles.css">
+<style>
+  /* small additions specific to Play */
+  .verdict{
+    margin:10px 14px 12px; padding:10px 12px; border-radius:10px;
+    border:1px solid var(--line); background:#f7faf8; color:#0f3b2d; font-weight:700;
+  }
+  .verdict.wrong{background:#fff5f5; color:#6b1a1a}
+  .hidden{display:none}
+</style>
 </head>
 <body>
-<header><div class="wrap nav"><div class="brand"><img class="logo" src="assets/logo.svg" alt=""><h1 class="title">Crystal Ball — Play</h1></div><a href="index.html" class="cta">← Back</a></div></header>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><img class="logo" src="assets/logo.svg" alt=""><h1 class="title">Crystal Ball — Play</h1></div>
+    <a href="index.html" class="cta">← Back</a>
+  </div>
+</header>
 
 <main class="wrap hero" style="padding-top:18px">
   <!-- Game -->
   <div class="card"><div class="in">
-    <div class="topbar mono"><div>Month <span id="i">0</span>/<span id="n">0</span></div><div>Bank: <span id="bank">₹0</span></div></div>
+    <div class="topbar mono"><div>Question <span id="i">0</span>/<span id="n">0</span></div></div>
+
     <div class="article" aria-label="Article">
-      <div class="mast"><div class="paper">Daily Ledger</div><div class="date"><span id="date">—</span></div></div>
+      <div class="mast"><div class="paper">Morning Brief — India</div><div class="date"><span id="date">—</span></div></div>
       <h2 id="headline" class="h">Loading pack…</h2>
       <p id="deck" class="deck"></p>
       <p id="by" class="by"></p>
+      <div id="verdict" class="verdict hidden" role="status"></div>
     </div>
+
     <div class="buttons">
-      <button class="btn up"   id="up" disabled>▲ UP</button>
+      <button class="btn up"   id="up"   disabled>▲ UP</button>
       <button class="btn down" id="down" disabled>▼ DOWN</button>
       <button class="btn skip" id="skip" disabled>Skip</button>
       <button class="btn"      id="start" disabled>Start</button>
+      <button class="btn"      id="next"  style="display:none">Next →</button>
     </div>
-    <p class="mono note" style="margin-top:8px">Monthly cadence. We settle using the NIFTY 50 close‑to‑close for that item’s date. Choosing auto‑advances.</p>
+
+    <p class="mono note" style="margin-top:8px">
+      We settle using the NIFTY 50 close‑to‑close for that item’s date. Choose calmly.
+    </p>
   </div></div>
 
-  <!-- Scoreboard -->
+  <!-- Scoreboard (simple) -->
   <div class="card"><div class="in">
-    <div class="grid-3" style="grid-template-columns:1fr 1fr 1fr">
-      <div class="k"><div class="lab note">Starting bank</div><div id="sb" class="val mono">₹0</div></div>
-      <div class="k"><div class="lab note">Current bank</div><div id="cb" class="val mono">₹0</div></div>
-      <div class="k"><div class="lab note">Right / Wrong</div><div id="rw" class="val mono">0 / 0</div></div>
-      <div class="k"><div class="lab note">Skips</div><div id="sk" class="val mono">0</div></div>
-      <div class="k"><div class="lab note">Avg monthly return</div><div id="am" class="val mono">0.00%</div></div>
-      <div class="k"><div class="lab note">Annualized (CAGR)</div><div id="cagr" class="val mono">0.00%</div></div>
+    <div class="grid-3">
+      <div class="k"><div class="lab note">Right</div><div id="rCnt" class="val mono">0</div></div>
+      <div class="k"><div class="lab note">Wrong</div><div id="wCnt" class="val mono">0</div></div>
+      <div class="k"><div class="lab note">Skips</div><div id="sCnt" class="val mono">0</div></div>
     </div>
   </div></div>
 </main>
 
-<div id="toast" class="toast mono">—</div>
-<footer><div class="wrap"><p class="note">Educational prototype. Headlines use real‑style sources (e.g., Reuters/official). In production, verify each item’s return% from NSE/Yahoo.</p></div></footer>
+<footer><div class="wrap"><p class="note">Educational prototype. Headlines credit original publishers (e.g., Reuters).</p></div></footer>
 
 <script src="scripts/play.js"></script>
 </body>
