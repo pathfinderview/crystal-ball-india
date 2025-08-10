@@ -3,68 +3,40 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your Crystal Ball Summary</title>
-<meta name="description" content="Post‑game report: the headlines you saw, the calls you made, and what actually happened.">
-<meta property="og:title" content="Crystal Ball — India: My Results">
-<meta property="og:description" content="I played the monthly headline game. See how news translated (or didn’t) into returns.">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  /* summary extras */
-  .heroSummary{
-    margin:28px 0 16px; padding:28px; border-radius:16px;
-    background: radial-gradient(800px 420px at -10% 0%, #eef6f2, #f7f5ef 60%, #ece8dc 100%);
-    border:1px solid var(--rule); box-shadow:var(--panel-shadow);
-  }
-  .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--rule); border-radius:999px; background:#fff; font-weight:800; font-size:12px}
-  .bigstat{font-size:34px; line-height:1.2; margin:6px 0 8px; color:#0f3b2d}
-  .sub{color:var(--ink-soft); margin:0; max-width:70ch}
-  .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+  .heroSummary{margin:28px 0 16px;padding:28px;border-radius:16px;background:radial-gradient(800px 420px at -10% 0%,#eef6f2,#f7f5ef 60%,#ece8dc 100%);border:1px solid var(--rule);box-shadow:var(--panel-shadow)}
+  .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border:1px solid var(--rule);border-radius:999px;background:#fff;font-weight:800;font-size:12px}
+  .bigstat{font-size:34px;line-height:1.2;margin:6px 0 8px;color:#0f3b2d}
+  .sub{color:var(--ink-soft);margin:0;max-width:70ch}
+  .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
   .btn.secondary{background:linear-gradient(180deg,#f3f7ff,#e8f0ff)}
   .btn.ghost{background:#fff}
-
-  /* table */
-  table{width:100%; border-collapse:separate; border-spacing:0; margin-top:16px; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:var(--panel-shadow)}
-  thead th{background:#fafafa; border-bottom:1px solid var(--line); font-weight:800; text-align:left; padding:12px}
-  tbody td{padding:12px; border-top:1px solid var(--line); vertical-align:top}
-  .monoSmall{font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric:tabular-nums}
-  .pos{color:var(--up); font-weight:800}
-  .neg{color:var(--down); font-weight:800}
-  .pill{display:inline-block; padding:2px 8px; border-radius:999px; border:1px solid var(--line); font-size:12px; background:#fff}
-  .pill.right{background:#e6f4ee; border-color:#cde6db}
-  .pill.wrong{background:#fff2f2; border-color:#f1c1c1}
-  .pill.skip{background:#fff8e2; border-color:#f5e6b8}
-  .disclaimer{font-size:12px; color:var(--ink-soft); margin-top:12px}
-  .quote{
-    margin:8px 0 0; padding:10px 12px; border-left:3px solid #d9d7d2; background:#fbfbf9; border-radius:8px
-  }
-  .heroBanner{
-    margin:0 auto; max-width:980px; text-align:center
-  }
-  .heroBanner h1{font-size:40px; line-height:1.16; color:#1f6a4f; margin:0}
-  .heroBanner p{color:#3c434a; margin:10px 0 0}
+  table{width:100%;border-collapse:separate;border-spacing:0;margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--panel-shadow)}
+  thead th{background:#fafafa;border-bottom:1px solid var(--line);font-weight:800;text-align:left;padding:12px}
+  tbody td{padding:12px;border-top:1px solid var(--line);vertical-align:top}
+  .monoSmall{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .pos{color:var(--up);font-weight:800}.neg{color:var(--down);font-weight:800}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid var(--line);font-size:12px;background:#fff}
+  .pill.right{background:#e6f4ee;border-color:#cde6db}.pill.wrong{background:#fff2f2;border-color:#f1c1c1}.pill.skip{background:#fff8e2;border-color:#f5e6b8}
+  .quote{margin:8px 0 0;padding:10px 12px;border-left:3px solid #d9d7d2;background:#fbfbf9;border-radius:8px}
+  .disclaimer{font-size:12px;color:var(--ink-soft);margin-top:12px}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
     <div class="brand"><img class="logo" src="assets/logo.svg" alt=""><h1 class="title">Crystal Ball — Summary</h1></div>
-    <nav class="actions">
-      <a class="cta" href="index.html">Home</a>
-      <a class="cta" href="play.html">Replay</a>
-    </nav>
+    <nav class="actions"><a class="cta" href="index.html">Home</a><a class="cta" href="play.html">Replay</a></nav>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="heroBanner">
-    <h1>How did your calls stack up?</h1>
-    <p class="note">A clean record of the headlines you saw, your choices, and how the NIFTY actually moved.</p>
-  </section>
-
   <section class="heroSummary" id="summaryHero">
-    <!-- Populated by JS -->
     <div class="badge">Post‑game report</div>
-    <div class="bigstat" id="headlineStat">Dummy: 95% people including make less when they take so much decisions.</div>
+    <div class="bigstat" id="headlineStat">Loading…</div>
     <p class="sub">Taking lots of “micro” market calls is harder than it looks. This is why portfolios often need a calm base (FDs / bonds / debt MFs) alongside equity ambition.</p>
+    <div class="quote">Dummy headline: “95% people including make less when they take so much decisions.” It captures the intuition that decision‑density can backfire—use fixed income as ballast so mistakes don’t compound.</div>
     <div class="ctaRow">
       <button class="btn primary" id="btnReplay">Replay</button>
       <button class="btn secondary" id="btnCopy">Copy link</button>
@@ -75,7 +47,7 @@
   <section>
     <h2>Round‑by‑round</h2>
     <div class="card"><div class="in">
-      <table id="resultsTable" aria-describedby="summaryHero">
+      <table id="resultsTable">
         <thead>
           <tr>
             <th style="width:110px">Date</th>
@@ -86,21 +58,14 @@
             <th>Why it feels ironic / context</th>
           </tr>
         </thead>
-        <tbody id="resultsBody">
-          <!-- rows via JS -->
-        </tbody>
+        <tbody id="resultsBody"></tbody>
       </table>
-      <p class="disclaimer">Educational prototype. Headlines link to the original source (e.g., Reuters). “Dummy” headline above is illustrative only.</p>
+      <p class="disclaimer">Educational prototype. Headlines link to original publishers.</p>
     </div></div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p class="note">© 2025 • Crystal Ball — India • We do not provide investment advice.</p>
-  </div>
-</footer>
-
-<script src="scripts/summary.js"></script>
+<footer><div class="wrap"><p class="note">© 2025 • Crystal Ball — India • Not investment advice.</p></div></footer>
+<script src="scripts/summary.js?v=20250810"></script>
 </body>
 </html>
